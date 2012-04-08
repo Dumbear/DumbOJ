@@ -1,0 +1,437 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-width: 800;
+    max-width: 1200;
+    margin: 8px auto;
+    background: #FFF;
+    font-size: 87.5%;
+    font-family: verdana, arial, sans-serif;
+}
+
+table {
+    margin: 8px auto;
+    border-style: none;
+    border-collapse: separate;
+    background: #FFF;
+    font-size: 100%;
+}
+
+th, td {
+    padding: 0.5em;
+    border-style: none;
+    background: transparent;
+}
+
+th {
+    font-weight: bold;
+}
+
+input[type="submit"], input[type="reset"] {
+    padding: 0.1em 0.5em;
+}
+
+hr {
+}
+
+.container {
+    margin: 8px auto;
+    padding: 0.5em;
+    border: 1px solid #DDD;
+    border-radius: 0.5em;
+    box-shadow: 0 0 0.5em #DDD;
+    font-size: 100%;
+    background: #FFF;
+}
+
+
+
+
+
+a {
+    color: #00E;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
+
+div.dark {
+    background: #DDD;
+}
+
+div.logo {
+    float: left;
+}
+
+div.user-op {
+    float: right;
+}
+
+div.user-op a {
+    text-decoration: underline;
+}
+
+div.menu {
+    margin-bottom: 1.5em;
+}
+
+ul.menu {
+    list-style: none;
+}
+
+ul.menu li {
+    margin-left: 2em;
+    float: left;
+}
+
+ul.menu li a {
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+table.data {
+    width: 100%;
+    font-size: 0.9em;
+    border-collapse: collapse;
+}
+
+table.data tr.odd {
+    background: #EEE;
+}
+
+table.data tr.even {
+    background: #FFF;
+}
+
+table.data td, table.data th {
+    border: 1px solid #DDD;
+    padding: 0.5em;
+    text-align: center;
+}
+
+table.data th {
+    font-weight: bold;
+}
+
+form table {
+    width: 100%;
+}
+
+form table .field {
+    font-weight: bold;
+    color: #333;
+    text-align: right;
+}
+
+form table .required {
+    color: #F00;
+}
+
+form table .op {
+    text-align: center;
+}
+
+div.error {
+    color: #F00;
+}
+
+div.login {
+    width: 30em;
+}
+
+div.login .title {
+    font-size: 120%;
+    color: #888;
+}
+
+div.register {
+    width: 40em;
+}
+
+div.register .title {
+    font-size: 120%;
+    color: #888;
+}
+
+div.profile {
+}
+
+div.profile .username {
+    font-size: 150%;
+    font-weight: bold;
+    color: #000;
+}
+
+div.profile .disabled {
+    color: #F00;
+}
+
+div.profile .real_name {
+    font-size: 75%;
+    font-weight: bold;
+    color: #888;
+}
+
+div.profile .school {
+    font-size: 75%;
+}
+
+div.profile ul {
+    list-style: none;
+    margin-top: 1em;
+}
+
+div.profile ul li {
+    margin: 0.5em 0;
+}
+
+div.profile ul .field {
+    font-weight: bold;
+    color: #333;
+}
+
+div.solutions .site {
+    font-weight: bold;
+    color: #000;
+}
+
+div.solutions table.solutions td {
+    width: 10%;
+}
+
+div.problem .title {
+    font-size: 150%;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.problem .origin {
+    font-size: 75%;
+    text-align: center;
+}
+
+div.problem .limit {
+    color: #333;
+    text-align: center;
+}
+
+div.problem .op {
+    text-align: center;
+}
+
+div.problem .field {
+    font-size: 120%;
+    font-weight: bold;
+    color: #333;
+}
+
+div.submit_problem {
+    width: 75%;
+}
+
+div.submit_problem .title {
+    font-size: 120%;
+    color: #888;
+}
+
+div.submit_problem .field {
+    width: 8em;
+}
+
+div.submit_problem .source_code {
+    display: block;
+    width: 100%;
+    height: 25em;
+}
+
+div.submit_problem .op input {
+    width: 5em;
+}
+
+div.status table.status td.result0 {
+    font-weight: bold;
+    color: #0A0;
+}
+
+div.status table.status td.result1 {
+    font-weight: bold;
+    color: #A00;
+}
+
+div.status table.status td.result2 {
+    font-weight: bold;
+    color: #A00;
+}
+
+div.status table.status td.result3 {
+    font-weight: bold;
+    color: #A00;
+}
+
+div.status table.status td.result4 {
+    font-weight: bold;
+    color: #A00;
+}
+
+div.status table.status td.result5 {
+    font-weight: bold;
+}
+
+div.status table.status td.result6 {
+    font-style: italic;
+    font-weight: bold;
+    color: #0A0;
+}
+
+div.status table.status td.result7 {
+    font-weight: bold;
+    color: #A00;
+}
+
+div.status table.status td.result8 {
+    font-weight: bold;
+    color: #A00;
+}
+
+div.status table.status td.result-yes {
+    font-weight: bold;
+    color: #0A0;
+}
+
+div.status table.status td.result-no {
+    font-weight: bold;
+    color: #A00;
+}
+
+div.contests .op {
+    text-align: center;
+}
+
+div.contests table.current tr.odd {
+    background: #FDD;
+}
+
+div.contests table.current tr.even {
+    background: #FEE;
+}
+
+div.contests table.upcoming tr.odd {
+    background: #DFD;
+}
+
+div.contests table.upcoming tr.even {
+    background: #EFE;
+}
+
+div.contests table td.public {
+}
+
+div.contests table td.private {
+    color: #F33;
+}
+
+div.submenu {
+    font-size: 90%;
+    margin-bottom: 1.5em;
+}
+
+div.submenu ul.menu li a.current {
+    border-bottom: 2px solid #888;
+}
+
+div.contest .title {
+    font-size: 150%;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.contest table.info {
+    margin: 0 auto 1.5em auto;
+    color: #333;
+}
+
+div.contest table.info td {
+    padding: 0 0.25em;
+}
+
+div.contest table.info td.field {
+    font-weight: bold;
+    text-align: right;
+}
+
+div.contest table.info td.running {
+    color: #F33;
+}
+
+div.contest table.info td.upcoming {
+    color: #3F3;
+}
+
+div.contest table.info td.public {
+}
+
+div.contest table.info td.private {
+    color: #F33;
+}
+
+div.contest div.need_password {
+    width: 25em;
+}
+
+div.contest div.problems {
+    margin: 0 auto 1.5em auto;
+    width: 75%;
+}
+
+div.contest div.description {
+    margin: 0 auto;
+    width: 75%;
+}
+
+div.contest div.problem_list {
+    font-size: 120%;
+    margin: 0 auto;
+    width: 75%;
+}
+
+div.contest div.problem_list table th {
+    padding: 0;
+}
+
+div.contest div.problem .title {
+    color: #333;
+}
+
+div.contest div.problem .flag {
+    font-style: italic;
+}
+
+div.contest table.standings td.info_pending {
+    background: #FF8;
+}
+
+div.contest table.standings td.info_yes {
+    background: #8F8;
+}
+
+div.contest table.standings td.info_no {
+    background: #F88;
+}
