@@ -16,6 +16,7 @@ class User_model extends CI_Model {
     }
 
     public function register($user) {
+        $user['registration_time'] = date('Y-m-d H:i:s');
         if ($this->db->insert('users', $user) === true) {
             return $this->db->insert_id();
         } else {
