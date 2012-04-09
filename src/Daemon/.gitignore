@@ -1,0 +1,19 @@
+# Java class #
+##############
+*.class
+
+# Config #
+##########
+config.xml
+
+# Accounts #
+############
+*Accounts.xml
+
+# Log #
+#######
+*.log
+
+# SQL #
+#######
+*.sql
