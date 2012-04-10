@@ -37,9 +37,7 @@ if (!function_exists('get_available_sites')) {
         //Could add more sites here.
         return array(
             'All',
-            'POJ',
-            'ABC',
-            'DEF'
+            'POJ'
         );
     }
 }
