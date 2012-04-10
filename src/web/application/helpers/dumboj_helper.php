@@ -37,7 +37,9 @@ if (!function_exists('get_available_sites')) {
         //Could add more sites here.
         return array(
             'All',
-            'POJ'
+            'POJ',
+            'ABC',
+            'DEF'
         );
     }
 }
@@ -153,12 +155,12 @@ if (!function_exists('nullable_input')) {
 }
 
 if (!function_exists('parse_conditions')) {
-    function parse_conditions($value, $names) {
+    function parse_conditions($value, $names, $separator = ':') {
         $result = array();
-        if (substr_count($value, ':') !== count($names) - 1) {
+        if (substr_count($value, $separator) !== count($names) - 1) {
             return $result;
         }
-        $values = explode(':', $value);
+        $values = explode($separator, $value);
         for ($i = 0; $i < count($values); ++$i) {
             if ($values[$i] !== '') {
                 $result[$names[$i]] = $values[$i];

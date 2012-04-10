@@ -103,6 +103,74 @@ $config = array(
             'label' => '"Source code"',
             'rules' => 'required|min_length[32]|max_length[65535]'
         )
+    ),
+    //TODO
+    'add_contest' => array(
+        array(
+            'field' => 'title',
+            'label' => '"Title"',
+            'rules' => 'trim|required|max_length[128]'
+        ),
+        array(
+            'field' => 'start_time_d',
+            'label' => '"Start date"',
+            'rules' => 'trim|required|valid_date'
+        ),
+        array(
+            'field' => 'start_time_h',
+            'label' => '"Start hour"',
+            'rules' => 'trim|required|is_natural|less_than[24]'
+        ),
+        array(
+            'field' => 'start_time_i',
+            'label' => '"Start minute"',
+            'rules' => 'trim|required|is_natural|less_than[60]'
+        ),
+        array(
+            'field' => 'duration_d',
+            'label' => '"Duration days"',
+            'rules' => 'trim|is_natural|less_than[30]'
+        ),
+        array(
+            'field' => 'duration_h',
+            'label' => '"Duration hours"',
+            'rules' => 'trim|is_natural|less_than[24]'
+        ),
+        array(
+            'field' => 'duration_i',
+            'label' => '"Duration minutes"',
+            'rules' => 'trim|is_natural|less_than[60]'
+        ),
+        array(
+            'field' => 'password',
+            'label' => '"Password"',
+            'rules' => 'max_length[32]'
+        ),
+        array(
+            'field' => 'description',
+            'label' => '"Description"',
+            'rules' => 'trim|max_length[65535]'
+        ),
+        array(
+            'field' => 'announcement',
+            'label' => '"Announcement"',
+            'rules' => 'trim|max_length[65535]'
+        ),
+        array(
+            'field' => 'sites[]',
+            'label' => '"Problem sites"',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'ids[]',
+            'label' => '"Problem IDs"',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'key',
+            'label' => '"Key"',
+            'rules' => 'trim|required|check_add_contest'
+        )
     )
 );
 

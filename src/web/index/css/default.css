@@ -348,6 +348,42 @@ div.contests table td.private {
     color: #F33;
 }
 
+div.add_contest {
+    width: 75%;
+}
+
+div.add_contest .title {
+    font-size: 120%;
+    color: #888;
+}
+
+div.add_contest textarea[name=description] {
+    width: 100%;
+    height: 5em;
+}
+
+div.add_contest textarea[name=announcement] {
+    width: 100%;
+    height: 4em;
+}
+
+div.add_contest table.problems td {
+    padding: 0 0.5em;
+}
+
+div.add_contest table.problems tr.problem select {
+    width: 100%;
+}
+
+div.add_contest table.problems tr.problem input {
+    width: 100%;
+}
+
+div.add_contest table.problems tr.problem td.flag {
+    font-weight: bold;
+    text-align: center;
+}
+
 div.submenu {
     font-size: 90%;
     margin-bottom: 1.5em;

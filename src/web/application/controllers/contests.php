@@ -277,6 +277,27 @@ class Contests extends CI_Controller {
         $this->template->display_contest('contest_standings', $data);
     }
 
+    //TODO
+    public function add() {
+        //If need to login
+        if ($this->session->userdata('user_id') === false) {
+            $this->session->set_flashdata('referrer', current_url());
+            $this->session->set_flashdata('need_to_login', 'true');
+            redirect('/user/login');
+        }
+
+        $data = array();
+        $data['count'] = $this->input->post('sites') === false ? 0 : count($this->input->post('sites'));
+
+        //Validate form
+        $this->load->library('form_validation');
+        if ($this->form_validation->run('add_contest') === false) {
+            $this->template->display('add_contest', $data);
+        } else {
+            redirect('/contests');
+        }
+    }
+
     //^_^
     private function need_password($contest) {
         if ($contest->password === null) {

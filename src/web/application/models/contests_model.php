@@ -322,6 +322,28 @@ class Contests_model extends CI_Model {
         $query = $this->db->get();
         return $query->num_rows() > 0 ? $query->row() : null;
     }
+
+    public function add_contest($contest, $problems) {
+        $this->db->trans_start();
+
+        //Insert contest into `contests`
+        $this->db->insert('contests', $contest);
+        $contest_id = $this->db->insert_id();
+
+        //Insert problems into `contest_problems`
+        foreach ($problems as $flag => $item) {
+            $problem = array(
+                'problem_id' => $item,
+                'contest_id' => $contest_id,
+                'flag' => chr(ord('A') + $flag)
+            );
+            $this->db->insert('contest_problems', $problem);
+        }
+
+        $this->db->trans_complete();
+
+        return $this->db->trans_status() !== false;
+    }
 }
 
 /* End of file contests_model.php */
