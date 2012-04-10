@@ -83,7 +83,7 @@ class MY_Form_validation extends CI_Form_validation {
                 return true;
             }
         }
-        $this->set_message('valid_date', 'The %s field must contain a valid date');
+        $this->set_message('valid_date', 'The %s field must contain a valid date.');
         return false;
     }
 
@@ -102,7 +102,7 @@ class MY_Form_validation extends CI_Form_validation {
 
         //Check length of problems
         if (count($sites) <= 0 || count($sites) > 26) {
-            $this->set_message('check_add_contest', 'The number of problems must be between 1 to 26');
+            $this->set_message('check_add_contest', 'The number of problems must be between 1 to 26.');
             return false;
         }
 
@@ -113,7 +113,7 @@ class MY_Form_validation extends CI_Form_validation {
             $ids[$i] = trim($ids[$i]);
             $key = $this->CI->problems_model->get_problem_key($sites[$i], $ids[$i]);
             if ($key === null) {
-                $this->set_message('check_add_contest', 'All the problems must exist');
+                $this->set_message('check_add_contest', 'All the problems must exist.');
                 return false;
             }
             $problems[$i] = $key->id;
@@ -123,7 +123,7 @@ class MY_Form_validation extends CI_Form_validation {
         for ($i = 0; $i < count($problems); ++$i) {
             for ($j = $i + 1; $j < count($problems); ++$j) {
                 if ($problems[$i] === $problems[$j]) {
-                    $this->set_message('check_add_contest', 'All the problems must be distinct');
+                    $this->set_message('check_add_contest', 'All the problems must be distinct.');
                     return false;
                 }
             }
@@ -139,11 +139,11 @@ class MY_Form_validation extends CI_Form_validation {
         );
         $start_time = new DateTime($start_time);
         if ($start_time <= $now) {
-            $this->set_message('check_add_contest', 'The contest must start later than right now');
+            $this->set_message('check_add_contest', 'The contest must start later than right now.');
             return false;
         }
         if (get_time_span($now, $start_time) >= 30 * 24 * 60 * 60) {
-            $this->set_message('check_add_contest', 'The contest must start within 30 days');
+            $this->set_message('check_add_contest', 'The contest must start within 30 days.');
             return false;
         }
 
@@ -162,11 +162,11 @@ class MY_Form_validation extends CI_Form_validation {
         }
         $duration *= 60;
         if ($duration <= 0) {
-            $this->set_message('check_add_contest', 'The contest duration cannot be 0');
+            $this->set_message('check_add_contest', 'The contest duration cannot be 0.');
             return false;
         }
         if ($duration >= 30 * 24 * 60 * 60) {
-            $this->set_message('check_add_contest', 'The contest duration must be shorter than 30 days');
+            $this->set_message('check_add_contest', 'The contest duration must be shorter than 30 days.');
             return false;
         }
         $end_time = new DateTime();
