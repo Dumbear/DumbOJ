@@ -2,7 +2,7 @@
 <div class="contest">
   <div class="problem">
     <div class="problem_list">
-      <table class="data">
+      <table class="data" style="table-layout: fixed">
         <thead>
           <tr>
 <?php foreach ($problems as $p) { ?>

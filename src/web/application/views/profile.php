@@ -18,7 +18,7 @@
         <li><span class="field">Rank: </span><?php echo $rank; ?></li>
         <li><span class="field">Submissions: </span><a href="problems/status/::<?php echo $profile->username; ?>::"><?php echo $profile->submissions; ?></a></li>
         <li><span class="field">Solutions: </span><a href="problems/status/::<?php echo $profile->username; ?>::<?php echo get_result_key('Accepted'); ?>"><?php echo $profile->solutions; ?></a></li>
-        <li><span class="field">Success: </span><?php echo sprintf('%.2f', $profile->submissions > 0 ? $profile->solutions / $profile->submissions : 0); ?>%</li>
+        <li><span class="field">Success: </span><?php echo sprintf('%.2f', $profile->submissions > 0 ? $profile->solutions * 100.0 / $profile->submissions : 0); ?>%</li>
         <li><span class="field">Email: </span><?php if ($is_self || (int)$profile->share_email === 1) echo str_replace('@', '[#at]', htmlspecialchars($profile->email)); if ((int)$profile->share_email !== 1) echo ' (not public)'; ?></li>
         <li><span class="field">Member since: </span><?php echo $profile->registration_time === null ? 'N/A' : $profile->registration_time; ?></li>
       </ul>

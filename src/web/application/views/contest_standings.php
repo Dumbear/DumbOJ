@@ -3,12 +3,12 @@
     <div style="padding: 0.25em 0.5em">Standings</div>
     <div class="container" style="margin: 0">
       <div class="pagination"><?php echo $pagination; ?></div>
-      <table class="data standings">
+      <table class="data standings" style="table-layout: fixed">
         <thead>
           <tr>
             <th style="width: 4em">Rank</th>
-            <th style="">User</th>
-            <th style="width: 2em">Yes</th>
+            <th>User</th>
+            <th style="width: 4em">Yes</th>
             <th style="width: 8em">Penalty</th>
 <?php
       $flag_map = array();
