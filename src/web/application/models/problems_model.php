@@ -134,9 +134,10 @@ class Problems_model extends CI_Model {
 
     //^_^
     public function get_submission($id) {
-        $this->db->select('*');
+        $this->db->select('submissions.*, LENGTH(`source_code`) AS `length`, username');
         $this->db->from('submissions');
-        $this->db->where('id', $id);
+        $this->db->join('users', 'submissions.user_id = users.id', 'inner');
+        $this->db->where('submissions.id', $id);
         $query = $this->db->get();
         return $query->num_rows() > 0 ? $query->row() : null;
     }

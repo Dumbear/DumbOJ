@@ -152,6 +152,26 @@ class Problems extends CI_Controller {
         $this->template->display('status', $data);
     }
 
+    public function submission($id = null) {
+        if ($id === null) {
+            show_404();
+        }
+        $data = array();
+
+        //Fetch submission
+        $data['submission'] = $this->problems_model->get_submission($id);
+        if ($data['submission'] === null) {
+            show_404();
+        }
+
+        //If is a contest submission
+        if ($data['submission']->contest_id !== null) {
+            redirect("/contests/{$data['submission']->contest_id}/submission/{$data['submission']->id}");
+        }
+
+        $this->template->display('submission', $data);
+    }
+
     //^_^
     public function resubmit($id = null) {
         $referrer = $this->agent->referrer();

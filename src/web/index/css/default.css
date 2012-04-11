@@ -321,6 +321,18 @@ div.status table.status td.result-no {
     color: #A00;
 }
 
+div.submission {
+}
+
+div.submission .title {
+    font-size: 120%;
+    color: #888;
+}
+
+div.submission pre.info {
+    border: 1px solid #DDD;
+}
+
 div.contests .op {
     text-align: center;
 }
