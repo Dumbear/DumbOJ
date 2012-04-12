@@ -107,6 +107,18 @@ ul.menu li a {
     text-transform: uppercase;
 }
 
+div.footer {
+    color: #444;
+    font-size: 90%;
+    margin-top: 1.5em;
+    clear: both;
+    text-align: center;
+}
+
+div.footer a {
+    color: #44F;
+}
+
 table.data {
     width: 100%;
     font-size: 0.9em;
@@ -147,6 +159,19 @@ form table .required {
 
 form table .op {
     text-align: center;
+}
+
+div.sidebar {
+    width: 20em;
+    float: right;
+}
+
+div.sidebar div.title {
+    color: #888;
+}
+
+div.home {
+    margin-right: 20em;
 }
 
 div.error {
@@ -358,10 +383,10 @@ div.contests table.upcoming tr.even {
     background: #EFE;
 }
 
-div.contests table td.public {
+div.contests table .public {
 }
 
-div.contests table td.private {
+div.contests table .private {
     color: #F33;
 }
 

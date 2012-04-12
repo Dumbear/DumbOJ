@@ -17,6 +17,16 @@ class Contests_model extends CI_Model {
         return $query->result();
     }
 
+    public function get_current_contests() {
+        $now = date('Y-m-d H:i:s');
+        $this->db->select('contests.id, title, contests.password, start_time, end_time');
+        $this->db->from('contests');
+        $this->db->where('start_time <=', $now);
+        $this->db->where('end_time >', $now);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     //^_^
     public function get_past_contests($limit, $offset) {
         $now = date('Y-m-d H:i:s');
