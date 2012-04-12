@@ -277,6 +277,49 @@ class Contests extends CI_Controller {
         $this->template->display_contest('contest_standings', $data);
     }
 
+    public function submission($id = null, $submission_id = null) {
+        if ($id === null || $submission_id === null) {
+            show_404();
+        }
+        $data = array();
+
+        //Fetch contest
+        $data['contest'] = $this->contests_model->get_contest($id);
+        if ($data['contest'] === null) {
+            show_404();
+        }
+
+        //Fetch submission
+        $data['submission'] = $this->problems_model->get_submission($submission_id);
+        if ($data['submission'] === null) {
+            show_404();
+        }
+
+        //Fetch problem
+        $data['problem'] = $this->contests_model->get_problem_by_id(
+            $data['submission']->problem_id,
+            $data['contest']->id
+        );
+        if ($data['problem'] === null) {
+            show_404();
+        }
+
+        //If need password
+        if ($this->need_password($data['contest'])) {
+            redirect("/contests/{$data['contest']->id}");
+        }
+
+        //Check contest status
+        $data['status'] = get_contest_status($data['contest']->start_time, $data['contest']->end_time);
+        if ($data['status'] === 'Upcoming') {
+            $this->session->set_flashdata('message', 'This contest has not started yet!');
+            redirect("/contests/{$data['contest']->id}");
+        }
+
+        $data['module'] = 'Status';
+        $this->template->display_contest('contest_submission', $data);
+    }
+
     //TODO
     public function add() {
         //If need to login

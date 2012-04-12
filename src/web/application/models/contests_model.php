@@ -69,6 +69,15 @@ class Contests_model extends CI_Model {
         return $query->num_rows() > 0 ? $query->row() : null;
     }
 
+    public function get_problem_by_id($problem_id, $contest_id) {
+        $this->db->select('*');
+        $this->db->from('contest_problems');
+        $this->db->where('problem_id', $problem_id);
+        $this->db->where('contest_id', $contest_id);
+        $query = $this->db->get();
+        return $query->num_rows() > 0 ? $query->row() : null;
+    }
+
     //^_^
     public function get_submissions($conditions, $limit, $offset) {
         $this->db->select('submissions.id, problem_id, original_site, original_problem_id, contest_id, user_id, username, language, time, memory, result, result_key, LENGTH(`source_code`) AS `length`, is_shared, submission_time');

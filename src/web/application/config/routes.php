@@ -46,6 +46,7 @@ $route['contests/(:num)/submit'] = 'contests/submit_problem/$1/A';
 $route['contests/(:num)/submit/(:any)'] = 'contests/submit_problem/$1/$2';
 $route['contests/(:num)/status'] = 'contests/status/$1';
 $route['contests/(:num)/status/(:any)'] = 'contests/status/$1/$2';
+$route['contests/(:num)/submission/(:any)'] = 'contests/submission/$1/$2';
 $route['contests/(:num)/standings'] = 'contests/standings/$1';
 $route['404_override'] = '';
 
