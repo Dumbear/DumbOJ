@@ -169,6 +169,7 @@ class Problems extends CI_Controller {
             redirect("/contests/{$data['submission']->contest_id}/submission/{$data['submission']->id}");
         }
 
+        $data['meta_sh'] = true;
         $this->template->display('submission', $data);
     }
 
