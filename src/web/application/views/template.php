@@ -42,6 +42,12 @@
   <div style="clear: both"></div>
 </div>
 <?php echo $content; ?>
+<div class="footer">
+  <hr />
+  <p><a href="">DumbOJ</a> - Virtual Online Judge System of Wuhan University</p>
+  <p>Copyright © 2012 Dumbear. All rights reserved.</p>
+  <p>Please <a href="mailto:dumbear@163.com?Subject=About DumbOJ">contact author</a> if you have any suggestion or problem.</p>
+</div>
 <?php if ($this->session->flashdata('message') !== false) { ?>
 <script type="text/javascript">
     alert("<?php echo $this->session->flashdata('message'); ?>");

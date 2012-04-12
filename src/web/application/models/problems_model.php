@@ -34,6 +34,15 @@ class Problems_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
+    public function get_recent_problems($limit) {
+        $this->db->select('id, title, original_site, original_id, original_url');
+        $this->db->from('problems');
+        $this->db->order_by('creation_time DESC, original_site, original_id');
+        $this->db->limit($limit);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     //^_^
     public function get_problem($id) {
         $this->db->select('*');
