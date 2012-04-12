@@ -56,7 +56,9 @@
       <div class="title">Source code</div>
       <hr />
 <?php if ($can_view) { ?>
-      <pre class="info"><?php echo htmlspecialchars($submission->source_code); ?></pre>
+      <div class="source_code">
+        <pre class="<?php echo get_brush($submission->language_key); ?>"><?php echo htmlspecialchars($submission->source_code); ?></pre>
+      </div>
 <?php } else { ?>
       <div class="error">Sorry, this source code is private.</div>
 <?php } ?>

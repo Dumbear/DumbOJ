@@ -140,6 +140,21 @@ if (!function_exists('get_language_key')) {
     }
 }
 
+if (!function_exists('get_brush')) {
+    function get_brush($language) {
+        switch ((int)$language) {
+            case get_language_key('C'): case get_language_key('C++'):
+                return 'brush: cpp';
+            case get_language_key('Pascal'):
+                return 'brush: pascal';
+            case get_language_key('Java'):
+                return 'brush: java';
+            default:
+                return '';
+        }
+    }
+}
+
 if (!function_exists('parse_null')) {
     function parse_null($input) {
         return $input === false || trim($input) === '' ? null : $input;

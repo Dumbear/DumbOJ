@@ -20,7 +20,9 @@
       $s_privilege = $this->session->userdata('privilege');
       $error = null;
       if ($status === 'Running' && !can_admin($s_privilege) && (int)$submission->user_id !== $s_user_id) {
-          $error = 'Sorry, you can only view your own source code during a contest.';
+          if (!can_view_code($s_privilege)) {
+              $error = 'Sorry, you can only view your own source code during a contest.';
+          }
           $result = ((int)$submission->result_key === get_result_key('Accepted') ? 'Yes' : 'No');
           $result_class = 'result-' . strtolower($result);
           if ((int)$submission->result_key === get_result_key('Queuing')) {
@@ -76,7 +78,9 @@
       <div class="title">Source code</div>
       <hr />
 <?php if ($error === null) { ?>
-      <pre class="info"><?php echo htmlspecialchars($submission->source_code); ?></pre>
+      <div class="source_code">
+        <pre class="<?php echo get_brush($submission->language_key); ?>"><?php echo htmlspecialchars($submission->source_code); ?></pre>
+      </div>
 <?php } else { ?>
       <div class="error"><?php echo $error; ?></div>
 <?php } ?>

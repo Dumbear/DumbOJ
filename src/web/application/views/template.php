@@ -6,6 +6,12 @@
   <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
   <script type="text/javascript" src="js/md5-min.js"></script>
   <script type="text/javascript" src="js/common.js"></script>
+<?php if (isset($meta_sh)) { ?>
+  <script type="text/javascript" src="sh/scripts/shCore.js"></script>
+  <script type="text/javascript" src="sh/src/shAutoloader.js"></script>
+  <link href="sh/styles/shCore.css" rel="stylesheet" type="text/css" />
+  <link href="sh/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+<?php } ?>
 </head>
 <body>
 <div>
@@ -39,6 +45,16 @@
 <?php if ($this->session->flashdata('message') !== false) { ?>
 <script type="text/javascript">
     alert("<?php echo $this->session->flashdata('message'); ?>");
+</script>
+<?php } ?>
+<?php if (isset($meta_sh)) { ?>
+<script type="text/javascript">
+    SyntaxHighlighter.autoloader(
+        'cpp sh/scripts/shBrushCpp.js',
+        'pascal sh/scripts/shBrushDelphi.js',
+        'java sh/scripts/shBrushJava.js'
+    );
+    SyntaxHighlighter.all();
 </script>
 <?php } ?>
 </body>

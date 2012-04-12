@@ -333,6 +333,11 @@ div.submission pre.info {
     border: 1px solid #DDD;
 }
 
+div.submission div.source_code {
+    font-family: Courier New, monospace;
+    font-size: 87.5%;
+}
+
 div.contests .op {
     text-align: center;
 }

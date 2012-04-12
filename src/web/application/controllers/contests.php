@@ -317,6 +317,7 @@ class Contests extends CI_Controller {
         }
 
         $data['module'] = 'Status';
+        $data['meta_sh'] = true;
         $this->template->display_contest('contest_submission', $data);
     }
 
