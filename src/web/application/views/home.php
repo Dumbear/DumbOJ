@@ -55,7 +55,7 @@
             var h = Math.floor(timeLeft / 3600000) % 24;
             var i = Math.floor(timeLeft / 60000) % 60;
             var s = Math.floor(timeLeft / 1000) % 60;
-            return d + " Days " + new Date(0, 0, 0, h, i, s).format("HH:MM:ss");
+            return d + " Days " + new Date(1970, 0, 1, h, i, s).format("HH:MM:ss");
         });
     }
     updateTime();
