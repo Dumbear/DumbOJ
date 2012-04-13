@@ -1,4 +1,3 @@
-<!--IS OK-->
 <div>
   <div>
     <div class="container profile">
@@ -7,10 +6,10 @@
         <span class="disabled"><?php if ((int)$profile->enabled === 0) echo '(This user is diabled by admin.)'; ?></span>
       </div>
       <div>
-<?php if ($profile->real_name !== '') { ?>
-        <span class="real_name"><?php echo htmlspecialchars($profile->real_name); if ($profile->school !== '') echo ','; ?></span>
+<?php if ($profile->real_name !== null) { ?>
+        <span class="real_name"><?php echo htmlspecialchars($profile->real_name); if ($profile->school !== null) echo ','; ?></span>
 <?php } ?>
-<?php if ($profile->school !== '') { ?>
+<?php if ($profile->school !== null) { ?>
         <a class="school" href="user/search/:<?php echo rawurlencode($profile->school); ?>"><?php echo htmlspecialchars($profile->school); ?></a>
 <?php } ?>
       </div>
@@ -19,7 +18,22 @@
         <li><span class="field">Submissions: </span><a href="problems/status/::<?php echo $profile->username; ?>::"><?php echo $profile->submissions; ?></a></li>
         <li><span class="field">Solutions: </span><a href="problems/status/::<?php echo $profile->username; ?>::<?php echo get_result_key('Accepted'); ?>"><?php echo $profile->solutions; ?></a></li>
         <li><span class="field">Success: </span><?php echo sprintf('%.2f', $profile->submissions > 0 ? $profile->solutions * 100.0 / $profile->submissions : 0); ?>%</li>
-        <li><span class="field">Email: </span><?php if ($is_self || (int)$profile->share_email === 1) echo str_replace('@', '[#at]', htmlspecialchars($profile->email)); if ((int)$profile->share_email !== 1) echo ' (not public)'; ?></li>
+<?php
+      $email = $profile->email;
+      if ($email === null) {
+          $email = 'N/A';
+      } else {
+          if ($is_self || (int)$profile->share_email === 1) {
+              $email = str_replace('@', '[#at]', htmlspecialchars($email));
+              if ((int)$profile->share_email === 0) {
+                  $email .= ' (not public)';
+              }
+          } else {
+              $email = '(not public)';
+          }
+      }
+?>
+        <li><span class="field">Email: </span><?php echo $email; ?></li>
         <li><span class="field">Member since: </span><?php echo $profile->registration_time === null ? 'N/A' : $profile->registration_time; ?></li>
       </ul>
 <?php if ($is_self) { ?>

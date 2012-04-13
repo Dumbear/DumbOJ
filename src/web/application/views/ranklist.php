@@ -1,4 +1,3 @@
-<!--IS OK-->
 <div>
   <div>
     <div class="container dark" style="padding: 1px">
@@ -22,8 +21,16 @@
             <tr class="<?php echo alternator('odd', 'even'); ?>">
               <td><?php echo $offset + $rank + 1; ?></td>
               <td><a href="user/profile/<?php echo $item->username; ?>"><?php echo $item->username; ?></a></td>
+<?php     if ($item->school === null) { ?>
+              <td>N/A</td>
+<?php     } else { ?>
               <td><?php echo htmlspecialchars($item->real_name); ?></td>
+<?php     } ?>
+<?php     if ($item->school === null) { ?>
+              <td>N/A</td>
+<?php     } else { ?>
               <td><a href="user/search/:<?php echo rawurlencode($item->school); ?>"><?php echo htmlspecialchars($item->school); ?></a></td>
+<?php     } ?>
               <td><a href="problems/status/::<?php echo $item->username; ?>::"><?php echo $item->submissions; ?></a></td>
               <td><a href="problems/status/::<?php echo $item->username; ?>::<?php echo get_result_key('Accepted'); ?>"><?php echo $item->solutions; ?></a></td>
               <td><?php echo sprintf('%.2f', $item->submissions > 0 ? $item->solutions * 100.0 / $item->submissions : 0); ?>%</td>

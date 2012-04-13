@@ -35,9 +35,9 @@ class MY_Form_validation extends CI_Form_validation {
         $user = array(
             'username' => trim($this->CI->input->post('username')),
             'password' => trim($this->CI->input->post('key')),
-            'real_name' => trim($this->CI->input->post('real_name')),
-            'school' => trim($this->CI->input->post('school')),
-            'email' => trim($this->CI->input->post('email')),
+            'real_name' => nullable_input($this->CI->input->post('real_name')),
+            'school' => nullable_input($this->CI->input->post('school')),
+            'email' => nullable_input($this->CI->input->post('email')),
             'share_email' => ($this->CI->input->post('share_email') === 'true' ? 1 : 0),
             'share_code' => ($this->CI->input->post('share_code') === 'true' ? 1 : 0)
         );
