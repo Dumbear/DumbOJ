@@ -47,11 +47,11 @@
 <?php } ?>
         </select>
         &nbsp;&nbsp;Result:
-        <select id="result">
+        <select id="result"<?php if ($status === 'Running') echo ' disabled="disabled"'; ?>>
 <?php
       foreach (get_all_results() as $key => $result) {
           $selected = '';
-          if (isset($conditions['result_key']) && $conditions['result_key'] === (string)$key) {
+          if ($status !== 'Running' && isset($conditions['result_key']) && $conditions['result_key'] === (string)$key) {
               $selected = ' selected="selected"';
           }
           $result = htmlspecialchars($result);

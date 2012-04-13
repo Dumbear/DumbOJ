@@ -56,6 +56,7 @@ class Contests extends CI_Controller {
             $data['current_time']
         );
         $data['module'] = 'Overview';
+        $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
         $this->template->display_contest('view_contest', $data);
     }
 
@@ -217,6 +218,9 @@ class Contests extends CI_Controller {
             array('problem_id', 'username', 'language_key', 'result_key')
         );
         $data['conditions']['contest_id'] = $data['contest']->id;
+        if ($data['status'] === 'Running') {
+            unset($data['conditions']['result_key']);
+        }
 
         $this->load->library('pagination');
         $config = array(
@@ -274,6 +278,7 @@ class Contests extends CI_Controller {
         $data['offset'] = $offset;
         $data['pagination'] = $this->pagination->create_links();
         $data['module'] = 'Standings';
+        $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
         $this->template->display_contest('contest_standings', $data);
     }
 
