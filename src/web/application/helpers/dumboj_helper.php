@@ -36,8 +36,8 @@ if (!function_exists('get_available_sites')) {
     function get_available_sites() {
         //Could add more sites here.
         return array(
-            'All',
-            'POJ'
+            '' => 'All',
+            'http://poj.org' => 'POJ'
         );
     }
 }

@@ -42,7 +42,33 @@
     </div>
   </div>
   <div class="home">
-    <div>
+    <div class="container about">
+      <div class="title">About DumbOJ</div>
+      <hr />
+      <p><a href="">DumbOJ</a> is a virtual online judge system and an open source project <a href="https://github.com/Dumbear/DumbOJ">hosted on GitHub</a>. It can obtain problems from other regular online judge systems and simulate submissions. Hence everyone can hold virtual contests based on these problems.</p>
+      <p>Currently, the following online judge systems are supported:</p>
+      <ul class="sites">
+<?php
+      foreach (get_available_sites() as $url => $item) {
+          if ($item === 'All') {
+              continue;
+          }
+?>
+        <li><a href="<?php echo $url; ?>"><?php echo htmlspecialchars($item); ?></a></li>
+<?php } ?>
+      </ul>
+      <div style="clear: left"></div>
+    </div>
+    <div class="container todo">
+      <div class="title">To do list</div>
+      <hr />
+      <ul style="margin-left: 2em">
+        <li>Allow users to update profile</li>
+        <li>Allow users to edit contest</li>
+        <li>Allow searching users</li>
+        <li>Allow administration</li>
+        <li>Change the logo</li>
+      </ul>
     </div>
   </div>
 </div>
@@ -51,6 +77,9 @@
     function updateTime() {
         $(".time_left").html(function() {
             var timeLeft = $(this).attr("end_time") - (new Date().valueOf() + gap);
+            if (timeLeft <= 0) {
+                return "00:00:00";
+            }
             var d = Math.floor(timeLeft / 86400000);
             var h = Math.floor(timeLeft / 3600000) % 24;
             var i = Math.floor(timeLeft / 60000) % 60;

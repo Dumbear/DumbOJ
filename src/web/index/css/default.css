@@ -171,7 +171,30 @@ div.sidebar div.title {
 }
 
 div.home {
-    margin-right: 20em;
+    margin-right: 22em;
+    padding-top: 8px;
+}
+
+div.home p {
+    margin: 1em auto;
+}
+
+div.home div.about {
+    margin-top: 0;
+}
+
+div.home div.about ul.sites {
+    list-style: none;
+}
+
+div.home div.about ul.sites li {
+    margin-left: 2em;
+    float: left;
+}
+
+div.home .title {
+    font-size: 120%;
+    color: #888;
 }
 
 div.error {
