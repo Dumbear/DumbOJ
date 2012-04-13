@@ -4,6 +4,7 @@
   <base href="<?php echo site_url(); ?>" />
   <link href="css/default.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery.jgrowl_minimized.js"></script>
   <script type="text/javascript" src="js/md5-min.js"></script>
   <script type="text/javascript" src="js/common.js"></script>
 <?php if (isset($meta_sh)) { ?>
@@ -50,7 +51,7 @@
 </div>
 <?php if ($this->session->flashdata('message') !== false) { ?>
 <script type="text/javascript">
-    alert("<?php echo $this->session->flashdata('message'); ?>");
+    $.jGrowl("<?php echo $this->session->flashdata('message'); ?>", {position: 'bottom-right', life: 5000});
 </script>
 <?php } ?>
 <?php if (isset($meta_sh)) { ?>

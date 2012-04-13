@@ -40,6 +40,15 @@
         </tbody>
       </table>
     </div>
+    <div class="container search_users">
+      <div class="title">Search users</div>
+      <hr />
+      <form id="search_users" action="" method="post">
+        <span>Name:</span>
+        <input style="width: 10em" name="name" />
+        <input type="submit" value="Search" />
+      </form>
+    </div>
   </div>
   <div class="home">
     <div class="container about">
@@ -65,7 +74,7 @@
       <ul style="margin-left: 2em">
         <li>Allow users to update profile</li>
         <li>Allow users to edit contest</li>
-        <li>Allow searching users</li>
+        <li>Allow searching problems</li>
         <li>Allow administration</li>
         <li>Change the logo</li>
       </ul>
@@ -89,4 +98,10 @@
     }
     updateTime();
     setInterval(updateTime, 1000);
+
+    $("#search_users").submit(function() {
+        var name = rawurlencode($("#search_users input[name=name]").val());
+        window.location = "user/search/" + name + ":";
+        return false;
+    });
 </script>

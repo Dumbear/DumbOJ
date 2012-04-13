@@ -119,6 +119,35 @@ div.footer a {
     color: #44F;
 }
 
+div.jGrowl {
+    position: fixed;
+}
+
+div.jGrowl.bottom-right {
+    right: 0;
+    bottom: 0;
+}
+
+div.jGrowl div.jGrowl-notification {
+    background-color: #000;
+    border-radius: 0.5em;
+    opacity: .75;
+    min-height: 40px;
+    width: 240px;
+    font-size: 87.5%;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    padding: 0.75em;
+    display: none;
+    color: #fff;
+}
+
+div.jGrowl div.jGrowl-notification div.jGrowl-close {
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+}
+
 table.data {
     width: 100%;
     font-size: 0.9em;
