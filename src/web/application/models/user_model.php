@@ -57,6 +57,25 @@ class User_model extends CI_Model {
         return $query->result();
     }
 
+    public function search_users($conditions, $limit = 100) {
+        $where = '`enabled` = 1';
+        if (isset($conditions['name'])) {
+            $name = $this->db->escape_like_str($conditions['name']);
+            $where .= " AND (`username` LIKE '%{$name}%' OR `real_name` LIKE '%{$name}%')";
+        }
+        if (isset($conditions['school'])) {
+            $school = $this->db->escape_like_str($conditions['school']);
+            $where .= " AND `school` LIKE '%{$school}%'";
+        }
+        $this->db->select('id, username, real_name, school, email, share_email, submissions, solutions');
+        $this->db->from('users');
+        $this->db->where($where);
+        $this->db->order_by('solutions DESC, submissions, username');
+        $this->db->limit($limit);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function get_ranklist($limit, $offset) {
         $this->db->select('id, username, real_name, school, submissions, solutions');
         $this->db->from('users');

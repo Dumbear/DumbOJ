@@ -86,6 +86,18 @@ class User extends CI_Controller {
         $this->template->display('profile', $data);
     }
 
+    public function search($filter) {
+        $data = array();
+
+        //Parse filter conditions
+        $data['conditions'] = parse_conditions(rawurldecode($filter), array('name', 'school'));
+
+        //Fetch matched users
+        $data['users'] = $this->user_model->search_users($data['conditions']);
+
+        $this->template->display('search_users', $data);
+    }
+
     //IS OK
     public function ranklist($offset = 0) {
         $this->load->library('pagination');

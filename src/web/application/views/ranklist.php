@@ -21,7 +21,7 @@
             <tr class="<?php echo alternator('odd', 'even'); ?>">
               <td><?php echo $offset + $rank + 1; ?></td>
               <td><a href="user/profile/<?php echo $item->username; ?>"><?php echo $item->username; ?></a></td>
-<?php     if ($item->school === null) { ?>
+<?php     if ($item->real_name === null) { ?>
               <td>N/A</td>
 <?php     } else { ?>
               <td><?php echo htmlspecialchars($item->real_name); ?></td>
