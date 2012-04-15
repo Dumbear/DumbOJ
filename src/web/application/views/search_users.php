@@ -64,7 +64,7 @@
     $("#filter_users").submit(function() {
         var name = rawurlencode($("#filter_users input[name=name]").val());
         var school = rawurlencode($("#filter_users input[name=school]").val());
-        window.location = "user/search/" + name + ":" + school;
+        window.location = $("base").attr("href") + "user/search/" + name + ":" + school;
         return false;
     });
 </script>

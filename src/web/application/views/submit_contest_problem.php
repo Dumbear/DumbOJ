@@ -47,6 +47,6 @@
 </div>
 <script type="text/javascript">
     $("#flags").change(function() {
-        window.location = "contests/<?php echo $contest->id; ?>/submit/" + $(this).val();
+        window.location = $("base").attr("href") + "contests/<?php echo $contest->id; ?>/submit/" + $(this).val();
     });
 </script>

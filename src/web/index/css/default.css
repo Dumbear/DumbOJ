@@ -3,21 +3,33 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
     padding: 0;
 }
 
+img {
+    border-width: 0;
+}
+
 body {
-    min-width: 800;
-    max-width: 1200;
-    margin: 8px auto;
-    background: #FFF;
+    background-color: #FFF;
     font-size: 87.5%;
     font-family: verdana, arial, sans-serif;
+}
+
+.body {
+    min-width: 800px;
+    max-width: 1200px;
+    margin: 8px auto;
 }
 
 table {
     margin: 8px auto;
     border-style: none;
     border-collapse: separate;
-    background: #FFF;
+    background-color: #FFF;
     font-size: 100%;
+}
+
+table.fixed {
+    table-layout: fixed;
+    white-space: nowrap;
 }
 
 th, td {
@@ -44,10 +56,14 @@ hr {
     border-radius: 0.5em;
     box-shadow: 0 0 0.5em #DDD;
     font-size: 100%;
-    background: #FFF;
+    background-color: #FFF;
 }
 
-
+.long_line {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 
 
@@ -72,7 +88,7 @@ a:active {
 }
 
 div.dark {
-    background: #DDD;
+    background-color: #DDD;
 }
 
 div.logo {
@@ -154,12 +170,12 @@ table.data {
     border-collapse: collapse;
 }
 
-table.data tr.odd {
-    background: #EEE;
+table.data tr.odd td {
+    background-color: #EEE;
 }
 
-table.data tr.even {
-    background: #FFF;
+table.data tr.even td {
+    background-color: #FFF;
 }
 
 table.data td, table.data th {
@@ -419,20 +435,20 @@ div.contests .op {
     text-align: center;
 }
 
-div.contests table.current tr.odd {
-    background: #FDD;
+div.contests table.current tr.odd td {
+    background-color: #FDD;
 }
 
-div.contests table.current tr.even {
-    background: #FEE;
+div.contests table.current tr.even td {
+    background-color: #FEE;
 }
 
-div.contests table.upcoming tr.odd {
-    background: #DFD;
+div.contests table.upcoming tr.odd td {
+    background-color: #DFD;
 }
 
-div.contests table.upcoming tr.even {
-    background: #EFE;
+div.contests table.upcoming tr.even td {
+    background-color: #EFE;
 }
 
 div.contests table .public {
@@ -555,13 +571,13 @@ div.contest div.problem .flag {
 }
 
 div.contest table.standings td.info_pending {
-    background: #FF8;
+    background-color: #FF8;
 }
 
 div.contest table.standings td.info_yes {
-    background: #8F8;
+    background-color: #8F8;
 }
 
 div.contest table.standings td.info_no {
-    background: #F88;
+    background-color: #F88;
 }

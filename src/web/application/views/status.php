@@ -111,7 +111,7 @@
     $("#filter_status").submit(function() {
         var id = rawurlencode($("#id").val());
         var username = rawurlencode($("#username").val());
-        window.location = "problems/status/" + $("#site").val() + ":" + id + ":" + username + ":" + $("#language").val() + ":" + $("#result").val();
+        window.location = $("base").attr("href") + "problems/status/" + $("#site").val() + ":" + id + ":" + username + ":" + $("#language").val() + ":" + $("#result").val();
         return false;
     });
 </script>

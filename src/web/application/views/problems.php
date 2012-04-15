@@ -58,7 +58,7 @@
 </div>
 <script type="text/javascript">
     $("#site").change(function() {
-        window.location = "problems/index/" + $(this).val();
+        window.location = $("base").attr("href") + "problems/index/" + $(this).val();
     });
     $("#add_problems").submit(function() {
         $("#original_site").val($("#site").val());

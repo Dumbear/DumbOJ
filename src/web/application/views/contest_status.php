@@ -143,7 +143,7 @@
 <script type="text/javascript">
     $("#filter_status").submit(function() {
         var username = rawurlencode($("#username").val());
-        window.location = "contests/<?php echo $contest->id; ?>/status/" + $("#id").val() + ":" + username + ":" + $("#language").val() + ":" + $("#result").val();
+        window.location = $("base").attr("href") + "contests/<?php echo $contest->id; ?>/status/" + $("#id").val() + ":" + username + ":" + $("#language").val() + ":" + $("#result").val();
         return false;
     });
 </script>

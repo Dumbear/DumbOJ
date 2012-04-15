@@ -3,7 +3,7 @@
     <div class="container contests">
       <div class="title">Current contest</div>
       <hr />
-      <table class="data current">
+      <table class="data fixed current">
         <thead>
           <tr>
             <th>Title</th>
@@ -13,8 +13,8 @@
         <tbody>
 <?php foreach ($contests as $item) { ?>
           <tr class="<?php echo alternator('odd', 'even'); ?>">
-            <td><?php echo $item->password === null ? '<span class="public">&nbsp;</span>' : '<span class="private">*</span>'; ?><a href="contests/<?php echo $item->id; ?>"><?php echo htmlspecialchars($item->title); ?></a></td>
-            <td class="time_left" end_time="<?php $tmp = new DateTime($item->end_time); echo $tmp->getTimestamp(); ?>000"></td>
+            <td><div class="long_line"><?php echo $item->password === null ? '<span class="public">&nbsp;</span>' : '<span class="private">*</span>'; ?><a href="contests/<?php echo $item->id; ?>"><?php echo htmlspecialchars($item->title); ?></a></div></td>
+            <td><div class="time_left" end_time="<?php $tmp = new DateTime($item->end_time); echo $tmp->getTimestamp(); ?>000"></div></td>
           </tr>
 <?php } ?>
         </tbody>
@@ -23,18 +23,18 @@
     <div class="container problems">
       <div class="title">Recent added problems</div>
       <hr />
-      <table class="data">
+      <table class="data fixed">
         <thead>
           <tr>
-            <th>Origin</th>
+            <th style="width: 8em">Origin</th>
             <th>Title</th>
           </tr>
         </thead>
         <tbody>
 <?php foreach ($problems as $item) { ?>
           <tr class="<?php echo alternator('odd', 'even'); ?>">
-            <td><a href="<?php echo $item->original_url; ?>"><?php echo htmlspecialchars($item->original_site); ?> - <?php echo htmlspecialchars($item->original_id); ?></a></td>
-            <td style="text-align: left"><a href="problems/view/<?php echo $item->id; ?>"><?php echo $item->title; ?></a></td>
+            <td><div class="long_line"><a href="<?php echo $item->original_url; ?>"><?php echo htmlspecialchars($item->original_site); ?> - <?php echo htmlspecialchars($item->original_id); ?></a></div></td>
+            <td style="text-align: left"><div class="long_line"><a href="problems/view/<?php echo $item->id; ?>"><?php echo $item->title; ?></a></div></td>
           </tr>
 <?php } ?>
         </tbody>
@@ -84,16 +84,15 @@
 <script type="text/javascript">
     var gap = <?php echo $now->getTimestamp(); ?>000 - new Date().valueOf();
     function updateTime() {
-        $(".time_left").html(function() {
+        $(".time_left").text(function() {
             var timeLeft = $(this).attr("end_time") - (new Date().valueOf() + gap);
             if (timeLeft <= 0) {
                 return "00:00:00";
             }
-            var d = Math.floor(timeLeft / 86400000);
-            var h = Math.floor(timeLeft / 3600000) % 24;
+            var h = Math.floor(timeLeft / 3600000);
             var i = Math.floor(timeLeft / 60000) % 60;
             var s = Math.floor(timeLeft / 1000) % 60;
-            return d + " Days " + new Date(1970, 0, 1, h, i, s).format("HH:MM:ss");
+            return h + ":" + (i < 10 ? "0" : "") + i + ":" + (s < 10 ? "0" : "") + s;
         });
     }
     updateTime();
@@ -101,7 +100,7 @@
 
     $("#search_users").submit(function() {
         var name = rawurlencode($("#search_users input[name=name]").val());
-        window.location = "user/search/" + name + ":";
+        window.location = $("base").attr("href") + "user/search/" + name + ":";
         return false;
     });
 </script>
