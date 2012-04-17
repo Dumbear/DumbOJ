@@ -67,15 +67,15 @@
       <table class="data status">
         <thead>
           <tr>
-            <th>ID</th>
+            <th style="width: 8em">ID</th>
             <th>User</th>
             <th>Problem</th>
             <th>Result</th>
-            <th>Language</th>
-            <th>Time</th>
-            <th>Memory</th>
-            <th>Length</th>
-            <th>Submit at</th>
+            <th style="width: 12em">Language</th>
+            <th style="width: 8em">Time</th>
+            <th style="width: 8em">Memory</th>
+            <th style="width: 8em">Length</th>
+            <th style="width: 14em">Submit at</th>
           </tr>
         </thead>
         <tbody>
@@ -131,7 +131,7 @@
             <td><?php echo $time; ?></td>
             <td><?php echo $memory; ?></td>
             <td><?php echo $length; ?></td>
-            <td style="width: 12em"><?php echo $submission_time; ?></td>
+            <td><?php echo $submission_time; ?></td>
           </tr>
 <?php } ?>
         </tbody>

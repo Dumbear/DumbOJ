@@ -59,7 +59,7 @@ hr {
     background-color: #FFF;
 }
 
-.long_line {
+table.fixed td div {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

@@ -3,20 +3,21 @@
     <div style="padding: 0.25em 0.5em">Standings</div>
     <div class="container" style="margin: 0">
       <div class="pagination"><?php echo $pagination; ?></div>
-      <table class="data standings" style="table-layout: fixed">
+<div style="min-width: 100%; overflow: auto">
+      <table class="data fixed standings">
         <thead>
           <tr>
-            <th style="width: 4em">Rank</th>
-            <th>User</th>
+            <th style="width: 5em">Rank</th>
+            <th style="width: 10em">User</th>
             <th style="width: 4em">Yes</th>
-            <th style="width: 8em">Penalty</th>
+            <th style="width: 6em">Penalty</th>
 <?php
       $flag_map = array();
       foreach ($problems as $item) {
           $flag = $item->flag;
           $flag_map[$item->id] = $flag;
 ?>
-            <th><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $flag; ?>"><?php echo $flag; ?></a>(<?php echo $item->solutions; ?>/<?php echo $item->submissions; ?>)</th>
+            <th style="width: 6em"><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $flag; ?>"><?php echo $flag; ?></a>(<?php echo $item->solutions; ?>/<?php echo $item->submissions; ?>)</th>
 <?php } ?>
           </tr>
         </thead>
@@ -71,16 +72,17 @@
 ?>
           <tr class="<?php echo $tr_class; ?>">
             <td><?php echo $rank; ?></td>
-            <td><a href="user/profile/<?php echo $username; ?>"><?php echo $username; ?></a></td>
+            <td><div><a href="user/profile/<?php echo $username; ?>"><?php echo $username; ?></a></div></td>
             <td><a href="contests/<?php echo $contest->id; ?>/status/:<?php echo $username; ?>::"><?php echo $solutions; ?></a></td>
-            <td><?php echo $penalty; ?></td>
+            <td style="padding-left: 0; padding-right: 0"><?php echo $penalty; ?></td>
 <?php     foreach ($problems as $item) { ?>
-            <td class="<?php echo $info_class[$item->flag]; ?>"><?php echo $info[$item->flag]; ?></td>
+            <td class="<?php echo $info_class[$item->flag]; ?>" style="padding-left: 0; padding-right: 0"><?php echo $info[$item->flag]; ?></td>
 <?php     } ?>
           </tr>
 <?php } ?>
         </tbody>
       </table>
+</div>
       <div class="pagination"><?php echo $pagination; ?></div>
     </div>
   </div>

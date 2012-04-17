@@ -13,7 +13,7 @@
         <tbody>
 <?php foreach ($contests as $item) { ?>
           <tr class="<?php echo alternator('odd', 'even'); ?>">
-            <td><div class="long_line"><?php echo $item->password === null ? '<span class="public">&nbsp;</span>' : '<span class="private">*</span>'; ?><a href="contests/<?php echo $item->id; ?>"><?php echo htmlspecialchars($item->title); ?></a></div></td>
+            <td><div><?php echo $item->password === null ? '<span class="public">&nbsp;</span>' : '<span class="private">*</span>'; ?><a href="contests/<?php echo $item->id; ?>"><?php echo htmlspecialchars($item->title); ?></a></div></td>
             <td><div class="time_left" end_time="<?php $tmp = new DateTime($item->end_time); echo $tmp->getTimestamp(); ?>000"></div></td>
           </tr>
 <?php } ?>
@@ -33,8 +33,8 @@
         <tbody>
 <?php foreach ($problems as $item) { ?>
           <tr class="<?php echo alternator('odd', 'even'); ?>">
-            <td><div class="long_line"><a href="<?php echo $item->original_url; ?>"><?php echo htmlspecialchars($item->original_site); ?> - <?php echo htmlspecialchars($item->original_id); ?></a></div></td>
-            <td style="text-align: left"><div class="long_line"><a href="problems/view/<?php echo $item->id; ?>"><?php echo $item->title; ?></a></div></td>
+            <td><div><a href="<?php echo $item->original_url; ?>"><?php echo htmlspecialchars($item->original_site); ?> - <?php echo htmlspecialchars($item->original_id); ?></a></div></td>
+            <td style="text-align: left"><div><a href="problems/view/<?php echo $item->id; ?>"><?php echo $item->title; ?></a></div></td>
           </tr>
 <?php } ?>
         </tbody>

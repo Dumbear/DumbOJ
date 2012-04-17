@@ -59,7 +59,7 @@
 <?php if ($count === 0) { ?>
           <tr class="problem">
             <td class="flag">A</td>
-            <td>
+            <td style="width: 30%">
               <select name="sites[]">
 <?php
           foreach (get_available_sites() as $site) {

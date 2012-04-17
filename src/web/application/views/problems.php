@@ -21,13 +21,13 @@
       </div>
       <div class="container" style="margin: 0">
         <div class="pagination"><?php echo $pagination; ?></div>
-        <table class="data">
+        <table class="data fixed">
           <thead>
             <tr>
-              <th style="width: 15%">Origin</th>
-              <th style="width: 35%">Title</th>
-              <th style="width: 40%">Source</th>
-              <th style="width: 10%">Creation Time</th>
+              <th style="width: 14em">Origin</th>
+              <th style="width: 40%">Title</th>
+              <th style="width: ">Source</th>
+              <th style="width: 10em">Creation Time</th>
             </tr>
           </thead>
           <tbody>
@@ -43,9 +43,9 @@
           }
 ?>
             <tr class="<?php echo $tr_class; ?>">
-              <td><a href="<?php echo $problem->original_url; ?>"><?php echo $original_site; ?> - <?php echo $original_id; ?></a></td>
-              <td style="text-align: left"><a href="problems/view/<?php echo $problem->id; ?>"><?php echo $problem->title; ?></a></td>
-              <td style="text-align: left"><?php echo $problem->source; ?></td>
+              <td><div><a href="<?php echo $problem->original_url; ?>"><?php echo $original_site; ?> - <?php echo $original_id; ?></a></div></td>
+              <td style="text-align: left"><div><a href="problems/view/<?php echo $problem->id; ?>"><?php echo $problem->title; ?></a></div></td>
+              <td style="text-align: left"><div><?php echo $problem->source; ?></div></td>
               <td><?php echo $creation_time; ?></td>
             </tr>
 <?php } ?>

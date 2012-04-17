@@ -6,11 +6,11 @@
     <div class="container dark" style="padding: 1px">
       <div style="padding: 0.25em 0.5em">Current contests</div>
       <div class="container" style="margin: 0">
-        <table class="data current">
+        <table class="data fixed current">
           <thead>
             <tr>
               <th>Title</th>
-              <th style="width: 12em">Start at</th>
+              <th style="width: 14em">Start at</th>
               <th style="width: 12em">Duration</th>
               <th style="width: 8em">Type</th>
               <th style="width: 30%">Manager</th>
@@ -23,11 +23,11 @@
               ++$count;
 ?>
             <tr class="<?php echo alternator('odd', 'even'); ?>">
-              <td><a href="contests/<?php echo $contest->id; ?>"><?php echo htmlspecialchars($contest->title); ?></a></td>
+              <td><div><a href="contests/<?php echo $contest->id; ?>"><?php echo htmlspecialchars($contest->title); ?></a></div></td>
               <td><?php echo $contest->start_time; ?></td>
               <td><?php echo date_diff(date_create($contest->start_time), date_create($contest->end_time))->format('%a Days %H:%I:%S'); ?></td>
               <td class="<?php echo $contest->password === null ? 'public' : 'private'; ?>"><?php echo $contest->password === null ? 'Public' : 'Private'; ?></td>
-              <td><a href="user/profile/<?php echo $contest->username; ?>"><?php echo $contest->username; ?></a></td>
+              <td><div><a href="user/profile/<?php echo $contest->username; ?>"><?php echo $contest->username; ?></a></div></td>
             </tr>
 <?php     }
       }
@@ -42,11 +42,11 @@
     <div class="container dark" style="padding: 1px; margin-top: 1.5em">
       <div style="padding: 0.25em 0.5em">Upcoming contests</div>
       <div class="container" style="margin: 0">
-        <table class="data upcoming">
+        <table class="data fixed upcoming">
           <thead>
             <tr>
               <th>Title</th>
-              <th style="width: 12em">Start at</th>
+              <th style="width: 14em">Start at</th>
               <th style="width: 12em">Duration</th>
               <th style="width: 8em">Type</th>
               <th style="width: 30%">Manager</th>
@@ -59,11 +59,11 @@
               ++$count;
 ?>
             <tr class="<?php echo alternator('odd', 'even'); ?>">
-              <td><a href="contests/<?php echo $contest->id; ?>"><?php echo htmlspecialchars($contest->title); ?></a></td>
+              <td><div><a href="contests/<?php echo $contest->id; ?>"><?php echo htmlspecialchars($contest->title); ?></a></div></td>
               <td><?php echo $contest->start_time; ?></td>
               <td><?php echo date_diff(date_create($contest->start_time), date_create($contest->end_time))->format('%a Days %H:%I:%S'); ?></td>
               <td class="<?php echo $contest->password === null ? 'public' : 'private'; ?>"><?php echo $contest->password === null ? 'Public' : 'Private'; ?></td>
-              <td><a href="user/profile/<?php echo $contest->username; ?>"><?php echo $contest->username; ?></a></td>
+              <td><div><a href="user/profile/<?php echo $contest->username; ?>"><?php echo $contest->username; ?></a></div></td>
             </tr>
 <?php     }
       }

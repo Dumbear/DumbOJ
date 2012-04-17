@@ -1,17 +1,17 @@
 <div>
   <div class="status">
-    <table class="data status">
+    <table class="data fixed status">
       <thead>
         <tr>
-          <th>ID</th>
+          <th style="width: 8em">ID</th>
           <th>User</th>
           <th>Problem</th>
           <th>Result</th>
-          <th>Language</th>
-          <th>Time</th>
-          <th>Memory</th>
-          <th>Length</th>
-          <th>Submit at</th>
+          <th style="width: 12em">Language</th>
+          <th style="width: 8em">Time</th>
+          <th style="width: 8em">Memory</th>
+          <th style="width: 8em">Length</th>
+          <th style="width: 14em">Submit at</th>
         </tr>
       </thead>
       <tbody>
@@ -39,7 +39,7 @@
           <td><?php echo $submission->time === null ? 'N/A' : $submission->time . 'MS'; ?></td>
           <td><?php echo $submission->memory === null ? 'N/A' : $submission->memory . 'KB'; ?></td>
           <td><?php echo $submission->length; ?>B</td>
-          <td style="width: 12em"><?php echo $submission->submission_time === null ? 'N/A' : $submission->submission_time; ?></td>
+          <td><?php echo $submission->submission_time === null ? 'N/A' : $submission->submission_time; ?></td>
         </tr>
       </tbody>
     </table>
