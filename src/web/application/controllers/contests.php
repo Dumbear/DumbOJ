@@ -218,6 +218,14 @@ class Contests extends CI_Controller {
             array('problem_id', 'username', 'language_key', 'result_key')
         );
         $data['conditions']['contest_id'] = $data['contest']->id;
+        if (isset($data['conditions']['problem_id'])) {
+            foreach ($data['problems'] as $item) {
+                if ($data['conditions']['problem_id'] === $item->flag) {
+                    $data['conditions']['problem_id'] = $item->id;
+                    break;
+                }
+            }
+        }
         if ($data['status'] === 'Running') {
             unset($data['conditions']['result_key']);
         }

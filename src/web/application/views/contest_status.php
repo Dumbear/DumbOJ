@@ -1,62 +1,46 @@
-<!--IS OK-->
-<?php
-      $s_user_id = $this->session->userdata('user_id');
-      $s_privilege = $this->session->userdata('privilege');
-?>
 <div>
   <div class="container dark" style="padding: 1px">
     <div style="padding: 0.25em 0.5em">Status from
-      <form style="display: inline" id="filter_status" action="" method="post">
+      <form class="filter_status" style="display: inline" action="" method="post">
         Problem:
-        <select id="id">
+        <select name="id">
           <option value="">All</option>
 <?php
       $flag_map = array();
       foreach ($problems as $item) {
-          $id = $item->id;
-          $flag = $item->flag;
           $selected = '';
-          if (isset($conditions['problem_id']) && $conditions['problem_id'] === $id) {
+          if (isset($conditions['problem_id']) && $conditions['problem_id'] === $item->id) {
               $selected = ' selected="selected"';
           }
-          $title = htmlspecialchars($item->title);
-          $flag_map[$id] = $flag;
+          $flag_map[$item->id] = $item->flag;
 ?>
-          <option value="<?php echo $id; ?>"<?php echo $selected; ?>><?php echo $flag; ?> - <?php echo $title; ?></option>
+          <option value="<?php echo $item->flag; ?>"<?php echo $selected; ?>><?php echo $item->flag; ?> - <?php echo htmlspecialchars($item->title); ?></option>
 <?php } ?>
         </select>
         &nbsp;&nbsp;Username:
-<?php
-      $username = '';
-      if (isset($conditions['username'])) {
-          $username = htmlspecialchars($conditions['username']);
-      }
-?>
-        <input style="width: 8em" id="username" value="<?php echo $username; ?>" />
+        <input style="width: 8em" name="username" value="<?php echo isset($conditions['username']) ? htmlspecialchars($conditions['username']) : ''; ?>" />
         &nbsp;&nbsp;Language:
-        <select id="language">
+        <select name="language">
 <?php
       foreach (get_all_languages() as $key => $language) {
           $selected = '';
           if (isset($conditions['language_key']) && $conditions['language_key'] === (string)$key) {
               $selected = ' selected="selected"';
           }
-          $language = htmlspecialchars($language);
 ?>
-          <option value="<?php echo $key; ?>"<?php echo $selected; ?>><?php echo $language; ?></option>
+          <option value="<?php echo $key; ?>"<?php echo $selected; ?>><?php echo htmlspecialchars($language); ?></option>
 <?php } ?>
         </select>
         &nbsp;&nbsp;Result:
-        <select id="result"<?php if ($status === 'Running') echo ' disabled="disabled"'; ?>>
+        <select name="result"<?php if ($status === 'Running') echo ' disabled="disabled"'; ?>>
 <?php
       foreach (get_all_results() as $key => $result) {
           $selected = '';
-          if ($status !== 'Running' && isset($conditions['result_key']) && $conditions['result_key'] === (string)$key) {
+          if (isset($conditions['result_key']) && $conditions['result_key'] === (string)$key) {
               $selected = ' selected="selected"';
           }
-          $result = htmlspecialchars($result);
 ?>
-          <option value="<?php echo $key; ?>"<?php echo $selected; ?>><?php echo $result; ?></option>
+          <option value="<?php echo $key; ?>"<?php echo $selected; ?>><?php echo htmlspecialchars($result); ?></option>
 <?php } ?>
         </select>
         <input type="submit" value="Filter" />
@@ -64,86 +48,87 @@
     </div>
     <div class="container status" style="margin: 0">
       <div class="pagination"><?php echo $pagination; ?></div>
-      <table class="data status">
-        <thead>
-          <tr>
-            <th style="width: 8em">ID</th>
-            <th>User</th>
-            <th>Problem</th>
-            <th>Result</th>
-            <th style="width: 12em">Language</th>
-            <th style="width: 8em">Time</th>
-            <th style="width: 8em">Memory</th>
-            <th style="width: 8em">Length</th>
-            <th style="width: 14em">Submit at</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div style="min-width: 100%; overflow: auto">
+        <table class="data status">
+          <thead>
+            <tr>
+              <th style="width: 6em">ID</th>
+              <th>User</th>
+              <th style="width: 6em">Problem</th>
+              <th>Result</th>
+              <th>Language</th>
+              <th style="width: 8em">Time</th>
+              <th style="width: 8em">Memory</th>
+              <th style="width: 8em">Length</th>
+              <th style="width: 14em">Submit at</th>
+            </tr>
+          </thead>
+          <tbody>
 <?php
-      $contest_id = $contest->id;
+      $s_user_id = $this->session->userdata('user_id');
+      $s_privilege = $this->session->userdata('privilege');
       foreach ($submissions as $item) {
-          $tr_class = alternator('odd', 'even');
-          $user_id = (int)$item->user_id;
-          $is_shared = ((int)$item->is_shared === 1 ? true : false);
-          $id = $item->id;
-          if ($user_id === $s_user_id || can_view_code($s_privilege) || ($status === 'Ended' && $is_shared)) {
-              $id = "<a href=\"contests/{$contest_id}/submission/{$id}\">{$id}</a>";
-          }
-          $username = $item->username;
-          $flag = $flag_map[$item->problem_id];
-          $result = htmlspecialchars($item->result);
-          $result_key = (int)$item->result_key;
-          $result_class = "result{$result_key}";
-          if ($user_id !== $s_user_id && !can_admin($s_privilege) && $status === 'Running') {
-              if ($result_key === get_result_key('Accepted')) {
-                  $result = 'Yes';
-                  $result_class = 'result-yes';
-              } else if ($result_key !== get_result_key('Queuing')) {
-                  $result = 'No';
-                  $result_class = 'result-no';
+          if ($status === 'Running' && !can_admin($s_privilege) && (int)$item->user_id !== $s_user_id) {
+              $result = ((int)$item->result_key === get_result_key('Accepted') ? 'Yes' : 'No');
+              $result_class = 'result-' . strtolower($result);
+              if ((int)$item->result_key === get_result_key('Queuing')) {
+                  $result = $item->result;
+                  $result_class = "result{$item->result_key}";
               }
-          }
-          $refresh = '';
-          if (can_admin($s_privilege) || ($result !== 'No' && $result_key === get_result_key('System Error'))) {
-              $refresh = "<a href=\"problems/resubmit/{$item->id}\"><img style=\"width: 1em; height: 1em\" src=\"images/refresh.png\" /></a>";
-          }
-          $language = htmlspecialchars($item->language);
-          $time = ($item->time === null ? 'N/A' : $item->time . 'MS');
-          $memory = ($item->memory === null ? 'N/A' : $item->memory . 'KB');
-          $length = $item->length . 'B';
-          if ($user_id !== $s_user_id && !can_admin($s_privilege) && $status === 'Running') {
-              $language = 'N/A';
-              $time = 'N/A';
-              $memory = 'N/A';
-              $length = 'N/A';
-          }
-          $submission_time = $item->submission_time;
-          if ($submission_time === null) {
-              $submission_time = 'N/A';
-          }
 ?>
-          <tr class="<?php echo $tr_class; ?>">
-            <td><?php echo $id; ?></td>
-            <td><a href="user/profile/<?php echo $username; ?>"><?php echo $username; ?></a></td>
-            <td><a href="contests/<?php echo $contest_id; ?>/problem/<?php echo $flag; ?>"><?php echo $flag; ?></a></td>
-            <td class="<?php echo $result_class; ?>"><?php echo $result; ?><?php echo $refresh; ?></td>
-            <td><?php echo $language; ?></td>
-            <td><?php echo $time; ?></td>
-            <td><?php echo $memory; ?></td>
-            <td><?php echo $length; ?></td>
-            <td><?php echo $submission_time; ?></td>
-          </tr>
+            <tr class="<?php echo alternator('odd', 'even'); ?>">
+<?php         if (can_view_code($s_privilege)) { ?>
+              <td><a href="contests/<?php echo $contest->id; ?>/submission/<?php echo $item->id; ?>"><?php echo $item->id; ?></a></td>
+<?php         } else { ?>
+              <td><?php echo $item->id; ?></td>
+<?php         } ?>
+              <td><a href="user/profile/<?php echo $item->username; ?>"><?php echo $item->username; ?></a></td>
+              <td><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $flag_map[$item->problem_id]; ?>"><?php echo $flag_map[$item->problem_id]; ?></a></td>
+              <td class="<?php echo $result_class; ?>"><?php echo htmlspecialchars($result); ?></td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <td><?php echo $item->submission_time; ?></td>
+            </tr>
+<?php
+          } else {
+              $refresh = '';
+              if (can_admin($s_privilege) || (int)$item->result_key === get_result_key('System Error')) {
+                  $refresh = "<a href=\"problems/resubmit/{$item->id}\"><img style=\"width: 1em; height: 1em\" src=\"images/refresh.png\" /></a>";
+              }
+?>
+            <tr class="<?php echo alternator('odd', 'even'); ?>">
+<?php         if ($item->is_shared === '1' || can_view_code($s_privilege) || (int)$item->user_id === $s_user_id) { ?>
+              <td><a href="contests/<?php echo $contest->id; ?>/submission/<?php echo $item->id; ?>"><?php echo $item->id; ?></a></td>
+<?php         } else { ?>
+              <td><?php echo $item->id; ?></td>
+<?php         } ?>
+              <td><a href="user/profile/<?php echo $item->username; ?>"><?php echo $item->username; ?></a></td>
+              <td><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $flag_map[$item->problem_id]; ?>"><?php echo $flag_map[$item->problem_id]; ?></a></td>
+              <td class="result<?php echo $item->result_key; ?>"><?php echo htmlspecialchars($item->result); ?><?php echo $refresh; ?></td>
+              <td><?php echo htmlspecialchars($item->language); ?></td>
+              <td><?php echo $item->time === null ? 'N/A' : "{$item->time}MS"; ?></td>
+              <td><?php echo $item->memory === null ? 'N/A' : "{$item->memory}KB"; ?></td>
+              <td><?php echo $item->length; ?>B</td>
+              <td><?php echo $item->submission_time; ?></td>
+            </tr>
+<?php     } ?>
 <?php } ?>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
       <div class="pagination"><?php echo $pagination; ?></div>
     </div>
   </div>
 </div>
 <script type="text/javascript">
-    $("#filter_status").submit(function() {
-        var username = rawurlencode($("#username").val());
-        window.location = $("base").attr("href") + "contests/<?php echo $contest->id; ?>/status/" + $("#id").val() + ":" + username + ":" + $("#language").val() + ":" + $("#result").val();
+    $("form.filter_status").submit(function() {
+        var id = $("[name=id]", $(this)).val();
+        var username = rawurlencode($("[name=username]", $(this)).val());
+        var language = $("[name=language]", $(this)).val();
+        var result = $("[name=result]", $(this)).val();
+        window.location = $("base").attr("href") + "contests/<?php echo $contest->id; ?>/status/" + id + ":" + username + ":" + language + ":" + result;
         return false;
     });
 </script>

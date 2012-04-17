@@ -2,7 +2,7 @@
   <div class="container add_contest">
     <div class="title">Add a new contest</div>
     <hr />
-    <form id="add_contest" action="" method="post">
+    <form class="add_contest" action="" method="post">
       <input name="key" type="hidden" value="" />
       <div class="error"><?php echo validation_errors(); ?></div>
       <table style="width: 50%; float: left">
@@ -49,7 +49,7 @@
       <table class="problems" style="width: 50%; float: left">
         <thead>
           <tr>
-            <th style="width: 10%"><a id="add_problem" href="javascript: void(0)"><img style="width: 1em; height: 1em" src="images/add.png" /></a></th>
+            <th style="width: 10%"><a class="add_problem" href="javascript: void(0)"><img style="width: 1em; height: 1em" src="images/add.png" /></a></th>
             <th style="width: 30%">Site</th>
             <th style="width: 50%">ID</th>
             <th style="width: 10%"></th>
@@ -59,21 +59,20 @@
 <?php if ($count === 0) { ?>
           <tr class="problem">
             <td class="flag">A</td>
-            <td style="width: 30%">
+            <td>
               <select name="sites[]">
 <?php
           foreach (get_available_sites() as $site) {
               if ($site === 'All') {
                   continue;
               }
-              $site = htmlspecialchars($site);
 ?>
-                <option value="<?php echo $site; ?>"><?php echo $site; ?></option>
+                <option value="<?php echo form_prep($site); ?>"><?php echo htmlspecialchars($site); ?></option>
 <?php     } ?>
               </select>
             </td>
             <td><input name="ids[]" value="" /></td>
-            <td><a class="remove_problem" href="javascript: void(0)"><img style="width: 1em; height: 1em" src="images/remove.png" /></a></td>
+            <td><a class="remove_problem" href="javascript:void(0)"><img style="width: 1em; height: 1em" src="images/remove.png" /></a></td>
           </tr>
 <?php } else { ?>
 <?php     for ($i = 0; $i < $count; ++$i) { ?>
@@ -88,14 +87,13 @@
                       continue;
                   }
                   $selected = ($current_site === form_prep($site) ? ' selected="selected"' : '');
-                  $site = htmlspecialchars($site);
 ?>
-                <option value="<?php echo $site; ?>"<?php echo $selected; ?>><?php echo $site; ?></option>
+                <option value="<?php echo form_prep($site); ?>"<?php echo $selected; ?>><?php echo htmlspecialchars($site); ?></option>
 <?php         } ?>
               </select>
             </td>
             <td><input name="ids[]" value="<?php echo set_value('ids[]'); ?>" /></td>
-            <td><a class="remove_problem" href="javascript: void(0)"><img style="width: 1em; height: 1em" src="images/remove.png" /></a></td>
+            <td><a class="remove_problem" href="javascript:void(0)"><img style="width: 1em; height: 1em" src="images/remove.png" /></a></td>
           </tr>
 <?php     } ?>
 <?php } ?>
@@ -106,29 +104,31 @@
   </div>
 </div>
 <script type="text/javascript">
-    $("#add_contest").submit(function() {
+    $("form.add_contest").submit(function() {
         var password = $("input[name=password]", $(this)).val();
         $("input[name=password]", $(this)).val("*".repeat(password.length));
         $("input[name=key]", $(this)).val(hex_md5(password));
         return true;
     });
-    $("#add_problem").click(function() {
+    $("a.add_problem").click(function() {
         var count = $("table.problems tr.problem").length;
         if (count <= 0 || count >= 26) {
             return;
         }
         var $problem = $("table.problems tr.problem:last").clone();
-        $("td:first", $problem).html(String.fromCharCode("A".charCodeAt(0) + count));
+        $("td:first", $problem).text(String.fromCharCode("A".charCodeAt(0) + count));
+        $id = $("[name=\"ids[]\"]", $problem);
+        $id.val($id.val().match(/^\s*\d+\s*$/) ? parseInt($id.val()) + 1 : "");
         $("table.problems tbody").append($problem);
     });
-    $("table.problems tr.problem a.remove_problem").live("click", function() {
+    $("table.problems tr.problem .remove_problem").live("click", function() {
         var count = $("table.problems tr.problem").length;
         if (count <= 1) {
             return;
         }
         $(this).parent().parent().remove();
         $("table.problems tr.problem").each(function(index) {
-            $("td:first", $(this)).html(String.fromCharCode("A".charCodeAt(0) + index));
+            $("td:first", $(this)).text(String.fromCharCode("A".charCodeAt(0) + index));
         });
     });
 </script>

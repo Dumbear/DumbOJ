@@ -459,7 +459,7 @@ div.contests table .private {
 }
 
 div.add_contest {
-    width: 75%;
+    min-width: 75%;
 }
 
 div.add_contest .title {
