@@ -50,7 +50,7 @@
 ?>
         <div>
           <a class="site" href="problems/index/<?php echo rawurlencode($site); ?>"><?php echo htmlspecialchars($site); ?></a>
-          <table class="data solutions">
+          <table class="data fixed">
             <tbody>
 <?php     $count = 0;
           foreach ($solutions as $solution) {
@@ -64,7 +64,7 @@
 <?php             } ?>
               <tr class="<?php echo alternator('even', 'odd'); ?>">
 <?php         } ?>
-                <td><a href="problems/view/<?php echo $solution->problem_id; ?>"><?php echo htmlspecialchars($solution->original_problem_id); ?></a></td>
+                <td><div><a href="problems/view/<?php echo $solution->problem_id; ?>"><?php echo htmlspecialchars($solution->original_problem_id); ?></a></div></td>
 <?php         ++$count;
           }
           if ($count !== 0) {

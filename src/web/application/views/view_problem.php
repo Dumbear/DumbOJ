@@ -12,7 +12,7 @@
     <div class="op">
       <a href="problems/submit/<?php echo $problem->id; ?>">Submit</a>
       &nbsp;&nbsp;
-      <a href="javascript: window.history.back()">Go Back</a>
+      <a href="javascript:window.history.back()">Go Back</a>
       &nbsp;&nbsp;
       <a href="problems/status/<?php echo rawurlencode($problem->original_site); ?>:<?php echo rawurlencode($problem->original_id); ?>:::">Status</a>
     </div>
@@ -61,7 +61,7 @@
     <div class="op">
       <a href="problems/submit/<?php echo $problem->id; ?>">Submit</a>
       &nbsp;&nbsp;
-      <a href="javascript: window.history.back()">Go Back</a>
+      <a href="javascript:window.history.back()">Go Back</a>
       &nbsp;&nbsp;
       <a href="problems/status/<?php echo rawurlencode($problem->original_site); ?>:<?php echo rawurlencode($problem->original_id); ?>:::">Status</a>
     </div>

@@ -49,7 +49,7 @@
       <table class="problems" style="width: 50%; float: left">
         <thead>
           <tr>
-            <th style="width: 10%"><a class="add_problem" href="javascript: void(0)"><img style="width: 1em; height: 1em" src="images/add.png" /></a></th>
+            <th style="width: 10%"><a class="add_problem" href="javascript:void(0)"><img style="width: 1em; height: 1em" src="images/add.png" /></a></th>
             <th style="width: 30%">Site</th>
             <th style="width: 50%">ID</th>
             <th style="width: 10%"></th>

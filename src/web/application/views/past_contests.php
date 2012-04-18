@@ -1,4 +1,3 @@
-<!--IS OK-->
 <div>
   <div class="contests">
     <div class="op"><a href="contests/add">Add new contest</a>&nbsp;&nbsp;<a href="contests">View current contests</a></div>
@@ -17,12 +16,17 @@
             </tr>
           </thead>
           <tbody>
-<?php foreach ($contests as $contest) { ?>
+<?php
+      foreach ($contests as $contest) {
+          $start_time = new DateTime($contest->start_time);
+          $end_time = new DateTime($contest->end_time);
+          $type = ($contest->password === null ? 'Public' : 'Private');
+?>
             <tr class="<?php echo alternator('odd', 'even'); ?>">
               <td><div><a href="contests/<?php echo $contest->id; ?>"><?php echo htmlspecialchars($contest->title); ?></a></div></td>
               <td><?php echo $contest->start_time; ?></td>
-              <td><?php echo date_diff(date_create($contest->start_time), date_create($contest->end_time))->format('%a Days %H:%I:%S'); ?></td>
-              <td class="<?php echo $contest->password === null ? 'public' : 'private'; ?>"><?php echo $contest->password === null ? 'Public' : 'Private'; ?></td>
+              <td><?php echo $start_time->diff($end_time)->format('%a Days %H:%I:%S'); ?></td>
+              <td class="<?php echo strtolower($type) ?>"><?php echo $type; ?></td>
               <td><div><a href="user/profile/<?php echo $contest->username; ?>"><?php echo $contest->username; ?></a></div></td>
             </tr>
 <?php } ?>

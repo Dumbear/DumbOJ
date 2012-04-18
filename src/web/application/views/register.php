@@ -1,11 +1,10 @@
-<!--IS OK-->
 <div>
   <div>
     <div class="container register">
       <div class="title">Create a new DumbOJ account</div>
       <hr />
-      <form id="register" action="" method="post">
-        <input name="key" id="key" type="hidden" value="" />
+      <form class="register" action="" method="post">
+        <input name="key" type="hidden" value="" />
         <div class="error"><?php echo validation_errors(); ?></div>
         <table>
           <tbody>
@@ -15,11 +14,11 @@
             </tr>
             <tr>
               <td class="field">Password</td>
-              <td><input style="width: 12em" name="password" id="password" type="password" value="" /> <span class="required">*</span></td>
+              <td><input style="width: 12em" name="password" type="password" value="" /> <span class="required">*</span></td>
             </tr>
             <tr>
               <td class="field">Confirm password</td>
-              <td><input style="width: 12em" name="confirm_password" id="confirm_password" type="password" value="" /> <span class="required">*</span></td>
+              <td><input style="width: 12em" name="confirm_password" type="password" value="" /> <span class="required">*</span></td>
             </tr>
             <tr>
               <td class="field">Real name</td>
@@ -50,16 +49,16 @@
   </div>
 </div>
 <script type="text/javascript">
-    $("#register").submit(function() {
-        var password1 = $("#password").val();
-        var password2 = $("#confirm_password").val();
-        $("#password").val("*".repeat(password1.length));
+    $("form.register").submit(function() {
+        var password1 = $("[name=password]", $(this)).val();
+        var password2 = $("[name=confirm_password]", $(this)).val();
+        $("[name=password]", $(this)).val("*".repeat(password1.length));
         if (password1 == password2) {
-            $("#confirm_password").val("*".repeat(password2.length));
+            $("[name=confirm_password]", $(this)).val("*".repeat(password2.length));
         } else {
-            $("#confirm_password").val("#".repeat(password2.length));
+            $("[name=confirm_password]", $(this)).val("#".repeat(password2.length));
         }
-        $("#key").val(hex_md5(password1));
+        $("[name=key]", $(this)).val(hex_md5(password1));
         return true;
     });
 </script>

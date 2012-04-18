@@ -1,4 +1,3 @@
-<!--IS OK-->
 <div>
   <div class="container submit_problem">
     <div class="title">Submit your solution</div>

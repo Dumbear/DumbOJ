@@ -247,7 +247,7 @@ div.error {
 }
 
 div.login {
-    width: 30em;
+    width: 50%;
 }
 
 div.login .title {
@@ -304,10 +304,6 @@ div.profile ul .field {
 div.solutions .site {
     font-weight: bold;
     color: #000;
-}
-
-div.solutions table.solutions td {
-    width: 10%;
 }
 
 div.problem .title {
@@ -459,7 +455,6 @@ div.contests table .private {
 }
 
 div.add_contest {
-    min-width: 75%;
 }
 
 div.add_contest .title {

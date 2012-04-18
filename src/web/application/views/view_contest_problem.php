@@ -1,31 +1,30 @@
-<!--IS OK-->
 <div class="contest">
   <div class="problem">
     <div class="problem_list">
-      <table class="data" style="table-layout: fixed">
+      <table class="data fixed">
         <thead>
           <tr>
-<?php foreach ($problems as $p) { ?>
-<?php     if ($p->flag === $problem->flag) { ?>
-            <th><?php echo $p->flag; ?></th>
+<?php foreach ($problems as $item) { ?>
+<?php     if ($item->flag === $problem->flag) { ?>
+            <th><?php echo $item->flag; ?></th>
 <?php     } else { ?>
-            <th><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $p->flag; ?>"><?php echo $p->flag; ?></a></th>
+            <th><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $item->flag; ?>"><?php echo $item->flag; ?></a></th>
 <?php     } ?>
 <?php } ?>
           </tr>
         </thead>
       </table>
     </div>
-    <div class="title"><span class="flag"><?php echo $problem->flag; ?> - </span><?php echo $problem->title; ?></div>
+    <div class="title"><span class="flag"><?php echo $problem->flag; ?></span> - <?php echo $problem->title; ?></div>
 <?php if ($status === 'Ended') { ?>
     <div class="origin"><a href="problems/view/<?php echo $problem->id; ?>"><?php echo htmlspecialchars($problem->original_site); ?> - <?php echo htmlspecialchars($problem->original_id); ?></a></div>
 <?php } ?>
     <div class="limit">
       <strong>Time Limit: </strong>
-      <?php echo $problem->time_limit === null ? 'N/A' : $problem->time_limit . 'MS'; ?>
+      <?php echo $problem->time_limit === null ? 'N/A' : "{$problem->time_limit}MS"; ?>
       &nbsp;&nbsp;
       <strong>Memory Limit: </strong>
-      <?php echo $problem->memory_limit === null ? 'N/A' : $problem->memory_limit . 'KB'; ?>
+      <?php echo $problem->memory_limit === null ? 'N/A' : "{$problem->memory_limit}KB"; ?>
     </div>
     <div class="op">
       <a href="contests/<?php echo $contest->id; ?>/submit/<?php echo $problem->flag; ?>">Submit</a>

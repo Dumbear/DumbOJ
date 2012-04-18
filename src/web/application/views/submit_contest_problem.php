@@ -1,4 +1,3 @@
-<!--IS OK-->
 <div>
   <div class="container submit_problem">
     <div class="title">Submit your solution</div>
@@ -10,9 +9,9 @@
           <tr>
             <td class="field">Problem</td>
             <td>
-              <select name="flag" id="flags">
-<?php foreach ($problems as $p) { ?>
-                <option value="<?php echo $p->flag; ?>"<?php echo set_select('flag', $p->flag, $p->flag === $problem->flag); ?>><?php echo $p->flag; ?> - <?php echo htmlspecialchars($p->title); ?></option>
+              <select name="flag">
+<?php foreach ($problems as $item) { ?>
+                <option value="<?php echo $item->flag; ?>"<?php echo set_select('flag', $item->flag, $item->flag === $problem->flag); ?>><?php echo $item->flag; ?> - <?php echo htmlspecialchars($item->title); ?></option>
 <?php } ?>
               </select>
             </td>
@@ -46,7 +45,7 @@
   </div>
 </div>
 <script type="text/javascript">
-    $("#flags").change(function() {
+    $("select[name=flag]").change(function() {
         window.location = $("base").attr("href") + "contests/<?php echo $contest->id; ?>/submit/" + $(this).val();
     });
 </script>

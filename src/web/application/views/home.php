@@ -43,7 +43,7 @@
     <div class="container search_users">
       <div class="title">Search users</div>
       <hr />
-      <form id="search_users" action="" method="post">
+      <form class="search_users" action="" method="post">
         <span>Name:</span>
         <input style="width: 10em" name="name" />
         <input type="submit" value="Search" />
@@ -98,8 +98,8 @@
     updateTime();
     setInterval(updateTime, 1000);
 
-    $("#search_users").submit(function() {
-        var name = rawurlencode($("#search_users input[name=name]").val());
+    $("form.search_users").submit(function() {
+        var name = rawurlencode($("[name=name]", $(this)).val());
         window.location = $("base").attr("href") + "user/search/" + name + ":";
         return false;
     });
