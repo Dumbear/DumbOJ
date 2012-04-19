@@ -29,7 +29,7 @@
     <div class="op">
       <a href="contests/<?php echo $contest->id; ?>/submit/<?php echo $problem->flag; ?>">Submit</a>
       &nbsp;&nbsp;
-      <a href="contests/<?php echo $contest->id; ?>/status/<?php echo $problem->id; ?>:::">Status</a>
+      <a href="contests/<?php echo $contest->id; ?>/status/<?php echo $problem->flag; ?>:::">Status</a>
     </div>
 <?php if ($problem_content->description !== null) { ?>
     <div>
@@ -70,7 +70,7 @@
     <div class="op">
       <a href="contests/<?php echo $contest->id; ?>/submit/<?php echo $problem->flag; ?>">Submit</a>
       &nbsp;&nbsp;
-      <a href="contests/<?php echo $contest->id; ?>/status/<?php echo $problem->id; ?>:::">Status</a>
+      <a href="contests/<?php echo $contest->id; ?>/status/<?php echo $problem->flag; ?>:::">Status</a>
     </div>
   </div>
 </div>

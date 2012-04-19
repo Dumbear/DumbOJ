@@ -33,7 +33,7 @@
 <?php     } ?>
               <td><a href="problems/status/::<?php echo $item->username; ?>::"><?php echo $item->submissions; ?></a></td>
               <td><a href="problems/status/::<?php echo $item->username; ?>::<?php echo get_result_key('Accepted'); ?>"><?php echo $item->solutions; ?></a></td>
-              <td><?php echo sprintf('%.2f', $item->submissions > 0 ? $item->solutions * 100.0 / $item->submissions : 0); ?>%</td>
+              <td style="text-align: right"><?php echo sprintf('%.2f', $item->submissions > 0 ? $item->solutions * 100.0 / $item->submissions : 0); ?>%</td>
             </tr>
 <?php } ?>
           </tbody>

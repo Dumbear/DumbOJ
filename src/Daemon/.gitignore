@@ -17,3 +17,7 @@ config.xml
 # SQL #
 #######
 *.sql
+
+# Supervise #
+run
+supervise
