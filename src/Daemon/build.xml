@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Daemon" default="compile" basedir=".">
+  <target name="compile">
+    <javac srcdir="com" includeantruntime="false" />
+  </target>
+</project>
