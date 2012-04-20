@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 //^_^
 public class Config {
     public static int listeningPort;
+    public static String key;
     public static String cachePath;
     public static String charset;
 
@@ -35,6 +36,7 @@ public class Config {
             Element root = document.getDocumentElement();
 
             listeningPort = Integer.parseInt(parseValue(root, "ListeningPort"));
+            key = parseValue(root, "Key");
             cachePath = parseValue(root, "CachePath");
             charset = parseValue(root, "Charset");
 

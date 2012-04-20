@@ -1,11 +1,9 @@
 package com.dumbear.dumboj;
 
-import java.io.FileInputStream;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.dumbear.dumboj.submitter.Submission;
-import com.dumbear.dumboj.util.Utility;
 
 //^_^
 public class Request implements Runnable {
@@ -108,9 +106,6 @@ public class Request implements Runnable {
         submission.site = site;
         submission.problemId = problem_id;
         submission.language = language;
-        FileInputStream is = new FileInputStream(Config.cachePath + "/source_code_" + id);
-        submission.sourceCode = new String(Utility.readToEnd(is), "UTF-8");
-        is.close();
         ProblemJudger.add(submission);
     }
 }

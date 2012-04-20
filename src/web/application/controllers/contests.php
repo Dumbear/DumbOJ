@@ -5,36 +5,57 @@ class Contests extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('contests_model');
         $this->load->model('problems_model');
+        $this->load->model('contests_model');
         $buffer = array();
     }
 
-    //^_^
     public function index() {
         $data = array();
-        $data['contests'] = $this->contests_model->get_current_or_upcoming_contests();
+        $now = date('Y-m-d H:i:s');
+        $data['current_contests'] = $this->contests_model->get_current_contests($now);
+        $data['upcoming_contests'] = $this->contests_model->get_upcoming_contests($now);
         $this->template->display('contests', $data);
     }
 
-    //^_^
     public function past($offset = 0) {
+        $now = date('Y-m-d H:i:s');
         $this->load->library('pagination');
         $config = array(
             'base_url' => site_url('contests/past'),
             'uri_segment' => 3,
-            'total_rows' => $this->contests_model->count_past_contests(),
+            'total_rows' => $this->contests_model->count_past_contests($now),
             'per_page' => 50,
             'num_links' => 4
         );
         $this->pagination->initialize($config);
         $data = array();
-        $data['contests'] = $this->contests_model->get_past_contests($config['per_page'], $offset);
+        $data['contests'] = $this->contests_model->get_past_contests($config['per_page'], $offset, $now);
         $data['pagination'] = $this->pagination->create_links();
         $this->template->display('past_contests', $data);
     }
 
-    //^_^
+    public function add() {
+        //If need to login
+        if ($this->session->userdata('user_id') === false) {
+            $this->session->set_flashdata('referrer', current_url());
+            $this->session->set_flashdata('need_to_login', 'true');
+            redirect('/user/login');
+        }
+
+        $data = array();
+        $data['count'] = $this->input->post('sites') === false ? 0 : count($this->input->post('sites'));
+
+        //Validate form
+        $this->load->library('form_validation');
+        if ($this->form_validation->run('add_contest') === false) {
+            $this->template->display('add_contest', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Your contest has been added!');
+            redirect('/contests');
+        }
+    }
+
     public function view($id = null) {
         if ($id === null) {
             show_404();
@@ -47,20 +68,17 @@ class Contests extends CI_Controller {
             show_404();
         }
 
-        $data['need_password'] = $this->need_password($data['contest']);
+        //Fetch problems
         $data['problems'] = $this->contests_model->get_problems($data['contest']->id);
-        $data['current_time'] = new DateTime();
-        $data['status'] = get_contest_status(
-            $data['contest']->start_time,
-            $data['contest']->end_time,
-            $data['current_time']
-        );
+
+        $data['need_password'] = $this->need_password($data['contest']);
+        $data['now'] = new DateTime();
+        $data['status'] = get_contest_status($data['contest']->start_time, $data['contest']->end_time, $data['now']);
         $data['module'] = 'Overview';
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
         $this->template->display_contest('view_contest', $data);
     }
 
-    //^_^
     public function view_problem($id = null, $flag = null) {
         if ($id === null || $flag === null) {
             show_404();
@@ -95,12 +113,13 @@ class Contests extends CI_Controller {
             show_404();
         }
 
+        //Fetch problems
         $data['problems'] = $this->contests_model->get_problems($id);
+
         $data['module'] = 'Problems';
         $this->template->display_contest('view_contest_problem', $data);
     }
 
-    //^_^
     public function submit_problem($id = null, $flag = null) {
         if ($id === null || $flag === null) {
             show_404();
@@ -184,7 +203,6 @@ class Contests extends CI_Controller {
         }
     }
 
-    //^_^
     public function status($id = null, $filter = ':::', $offset = 0) {
         if ($id === null) {
             show_404();
@@ -219,11 +237,17 @@ class Contests extends CI_Controller {
         );
         $data['conditions']['contest_id'] = $data['contest']->id;
         if (isset($data['conditions']['problem_id'])) {
+            $id = null;
             foreach ($data['problems'] as $item) {
                 if ($data['conditions']['problem_id'] === $item->flag) {
-                    $data['conditions']['problem_id'] = $item->id;
+                    $id = $item->id;
                     break;
                 }
+            }
+            if ($id === null) {
+                unset($data['conditions']['problem_id']);
+            } else {
+                $data['conditions']['problem_id'] = $id;
             }
         }
         if ($data['status'] === 'Running') {
@@ -245,7 +269,6 @@ class Contests extends CI_Controller {
         $this->template->display_contest('contest_status', $data);
     }
 
-    //^_^
     public function standings($id = null, $offset = 0) {
         if ($id === null) {
             show_404();
@@ -302,6 +325,11 @@ class Contests extends CI_Controller {
             show_404();
         }
 
+        //If need password
+        if ($this->need_password($data['contest'])) {
+            redirect("/contests/{$data['contest']->id}");
+        }
+
         //Fetch submission
         $data['submission'] = $this->problems_model->get_submission($submission_id);
         if ($data['submission'] === null) {
@@ -310,16 +338,11 @@ class Contests extends CI_Controller {
 
         //Fetch problem
         $data['problem'] = $this->contests_model->get_problem_by_id(
-            $data['submission']->problem_id,
-            $data['contest']->id
+            $data['contest']->id,
+            $data['submission']->problem_id
         );
         if ($data['problem'] === null) {
             show_404();
-        }
-
-        //If need password
-        if ($this->need_password($data['contest'])) {
-            redirect("/contests/{$data['contest']->id}");
         }
 
         //Check contest status
@@ -334,28 +357,6 @@ class Contests extends CI_Controller {
         $this->template->display_contest('contest_submission', $data);
     }
 
-    //TODO
-    public function add() {
-        //If need to login
-        if ($this->session->userdata('user_id') === false) {
-            $this->session->set_flashdata('referrer', current_url());
-            $this->session->set_flashdata('need_to_login', 'true');
-            redirect('/user/login');
-        }
-
-        $data = array();
-        $data['count'] = $this->input->post('sites') === false ? 0 : count($this->input->post('sites'));
-
-        //Validate form
-        $this->load->library('form_validation');
-        if ($this->form_validation->run('add_contest') === false) {
-            $this->template->display('add_contest', $data);
-        } else {
-            redirect('/contests');
-        }
-    }
-
-    //^_^
     private function need_password($contest) {
         if ($contest->password === null) {
             return false;

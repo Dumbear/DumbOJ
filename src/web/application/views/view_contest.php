@@ -84,7 +84,7 @@
         $("[name=password]", $(this)).val(hex_md5(password));
         return true;
     });
-    var gap = <?php echo $current_time->getTimestamp(); ?>000 - new Date().valueOf();
+    var gap = <?php echo $now->getTimestamp(); ?>000 - new Date().valueOf();
     function updateTime() {
         $(".current_time").text(new Date(new Date().valueOf() + gap).format("yyyy-mm-dd HH:MM:ss"));
     }

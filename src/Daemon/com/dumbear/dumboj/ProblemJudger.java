@@ -1,11 +1,13 @@
 package com.dumbear.dumboj;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.dumbear.dumboj.submitter.Submission;
 import com.dumbear.dumboj.submitter.Submitter;
+import com.dumbear.dumboj.util.Utility;
 
 //^_^
 public class ProblemJudger implements Runnable {
@@ -50,6 +52,9 @@ public class ProblemJudger implements Runnable {
             }
             Submitter submitter = null;
             try {
+                FileInputStream is = new FileInputStream(Config.cachePath + "/source_code_" + submission.id);
+                submission.sourceCode = new String(Utility.readToEnd(is), Config.charset);
+                is.close();
                 submitter = (Submitter)Class.forName("com.dumbear.dumboj.submitter." + submission.site + "Submitter").newInstance();
                 submitter.submission = submission;
                 submitter.start();

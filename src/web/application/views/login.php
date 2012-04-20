@@ -5,7 +5,7 @@
     <form class="login" action="" method="post">
       <input name="key" type="hidden" value="" />
       <input name="salt" type="hidden" value="<?php echo $salt ?>" />
-<?php if ($need_to_login) { ?>
+<?php if ($this->session->flashdata('need_to_login') === 'true') { ?>
       <div class="error">You need to login to continue.</div>
 <?php } ?>
       <div class="error"><?php echo validation_errors(); ?></div>

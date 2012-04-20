@@ -12,7 +12,7 @@
               <th style="width: 14em">Start at</th>
               <th style="width: 12em">Duration</th>
               <th style="width: 8em">Type</th>
-              <th style="width: 30%">Manager</th>
+              <th>Manager</th>
             </tr>
           </thead>
           <tbody>

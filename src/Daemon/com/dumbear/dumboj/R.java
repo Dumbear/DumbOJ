@@ -18,7 +18,9 @@ public class R {
 
     public static void updateSubmission(Submission submission) throws Exception {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("id=");
+        buffer.append("key=");
+        buffer.append(URLEncoder.encode(Config.key, Config.charset));
+        buffer.append("&id=");
         buffer.append(URLEncoder.encode(submission.id.toString(), Config.charset));
         if (submission.originalId != null) {
             buffer.append("&original_id=");

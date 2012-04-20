@@ -22,10 +22,10 @@ if (!function_exists('can_hide')) {
 }
 
 if (!function_exists('generate_salt')) {
-    function generate_salt() {
+    function generate_salt($length = 8) {
         $table = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $salt = '';
-        for ($i = 0; $i < 8; ++$i) {
+        for ($i = 0; $i < $length; ++$i) {
             $salt .= $table{mt_rand(0, 35)};
         }
         return $salt;

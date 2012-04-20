@@ -17,6 +17,7 @@
           -
           <input style="width: 4em" name="original_id_to" value="" />
           <input type="submit" value="Add"<?php if ($current_site === 'All') echo ' disabled="disabled"'; ?> />
+          (You can add at most 16 problems once.)
         </form>
       </div>
       <div class="container" style="margin: 0">

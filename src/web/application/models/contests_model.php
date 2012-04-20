@@ -6,30 +6,35 @@ class Contests_model extends CI_Model {
         $this->load->database();
     }
 
-    //^_^
-    public function get_current_or_upcoming_contests() {
-        $now = date('Y-m-d H:i:s');
+    public function get_current_contests($now = null) {
+        if ($now === null) {
+            $now = date('Y-m-d H:i:s');
+        }
         $this->db->select('contests.id, user_id, username, title, contests.password, start_time, end_time');
         $this->db->from('contests');
         $this->db->join('users', 'contests.user_id = users.id', 'inner');
-        $this->db->where('end_time >', $now);
-        $query = $this->db->get();
-        return $query->result();
-    }
-
-    public function get_current_contests() {
-        $now = date('Y-m-d H:i:s');
-        $this->db->select('contests.id, title, contests.password, start_time, end_time');
-        $this->db->from('contests');
         $this->db->where('start_time <=', $now);
         $this->db->where('end_time >', $now);
         $query = $this->db->get();
         return $query->result();
     }
 
-    //^_^
-    public function get_past_contests($limit, $offset) {
-        $now = date('Y-m-d H:i:s');
+    public function get_upcoming_contests($now = null) {
+        if ($now === null) {
+            $now = date('Y-m-d H:i:s');
+        }
+        $this->db->select('contests.id, user_id, username, title, contests.password, start_time, end_time');
+        $this->db->from('contests');
+        $this->db->join('users', 'contests.user_id = users.id', 'inner');
+        $this->db->where('start_time >', $now);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_past_contests($limit, $offset, $now = null) {
+        if ($now === null) {
+            $now = date('Y-m-d H:i:s');
+        }
         $this->db->select('contests.id, user_id, username, title, contests.password, start_time, end_time');
         $this->db->from('contests');
         $this->db->join('users', 'contests.user_id = users.id', 'inner');
@@ -39,15 +44,37 @@ class Contests_model extends CI_Model {
         return $query->result();
     }
 
-    //^_^
-    public function count_past_contests() {
-        $now = date('Y-m-d H:i:s');
+    public function count_past_contests($now = null) {
+        if ($now === null) {
+            $now = date('Y-m-d H:i:s');
+        }
         $this->db->from('contests');
         $this->db->where('end_time <=', $now);
         return $this->db->count_all_results();
     }
 
-    //^_^
+    public function add_contest($contest, $problems) {
+        $this->db->trans_start();
+
+        //Insert contest into `contests`
+        $this->db->insert('contests', $contest);
+        $contest_id = $this->db->insert_id();
+
+        //Insert problems into `contest_problems`
+        foreach ($problems as $flag => $item) {
+            $problem = array(
+                'problem_id' => $item,
+                'contest_id' => $contest_id,
+                'flag' => chr(ord('A') + $flag)
+            );
+            $this->db->insert('contest_problems', $problem);
+        }
+
+        $this->db->trans_complete();
+
+        return $this->db->trans_status() !== false;
+    }
+
     public function get_contest($id) {
         $this->db->select('contests.id, user_id, username, title, description, contests.password, start_time, end_time, announcement');
         $this->db->from('contests');
@@ -57,7 +84,6 @@ class Contests_model extends CI_Model {
         return $query->num_rows() > 0 ? $query->row() : null;
     }
 
-    //^_^
     public function get_problems($id) {
         $this->db->select('problems.id, flag, title, original_site, original_id, original_url, submissions, solutions');
         $this->db->from('contest_problems');
@@ -68,7 +94,6 @@ class Contests_model extends CI_Model {
         return $query->result();
     }
 
-    //^_^
     public function get_problem($id, $flag) {
         $this->db->select('problems.id, flag, title, source, time_limit, memory_limit, original_site, original_id, original_url, submissions, solutions');
         $this->db->from('contest_problems');
@@ -79,16 +104,15 @@ class Contests_model extends CI_Model {
         return $query->num_rows() > 0 ? $query->row() : null;
     }
 
-    public function get_problem_by_id($problem_id, $contest_id) {
+    public function get_problem_by_id($id, $problem_id) {
         $this->db->select('*');
         $this->db->from('contest_problems');
+        $this->db->where('contest_id', $id);
         $this->db->where('problem_id', $problem_id);
-        $this->db->where('contest_id', $contest_id);
         $query = $this->db->get();
         return $query->num_rows() > 0 ? $query->row() : null;
     }
 
-    //^_^
     public function get_submissions($conditions, $limit, $offset) {
         $this->db->select('submissions.id, problem_id, original_site, original_problem_id, contest_id, user_id, username, language, time, memory, result, result_key, LENGTH(`source_code`) AS `length`, is_shared, submission_time');
         $this->db->from('submissions');
@@ -100,7 +124,6 @@ class Contests_model extends CI_Model {
         return $query->result();
     }
 
-    //^_^
     public function count_submissions($conditions) {
         $this->db->from('submissions');
         if (isset($conditions['username'])) {
@@ -110,7 +133,7 @@ class Contests_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    //^_^
+    //TODO check
     public function add_submission($submission, $time_span, $privilege) {
         $languages = get_available_languages($submission['original_site']);
         $submission['language'] = $languages[$submission['language_value']];
@@ -181,7 +204,7 @@ class Contests_model extends CI_Model {
         }
     }
 
-    //^_^
+    //TODO check
     public function update_submission($id, $submission) {
         $id = (int)$id;
         $submission['result_key'] = get_result_key($submission['result']);
@@ -300,7 +323,6 @@ class Contests_model extends CI_Model {
         return $this->db->trans_status() !== false;
     }
 
-    //^_^
     public function reset_submission($id, $result = 'Queuing') {
         $submission = array(
             'original_id' => null,
@@ -314,7 +336,6 @@ class Contests_model extends CI_Model {
         }
     }
 
-    //^_^
     public function get_contestants($id, $limit, $offset) {
         $this->db->select('users.id, username, contestants.solutions, penalty, json');
         $this->db->from('contestants');
@@ -326,42 +347,18 @@ class Contests_model extends CI_Model {
         return $query->result();
     }
 
-    //^_^
     public function count_contestants($id) {
         $this->db->from('contestants');
         $this->db->where('contest_id', $id);
         return $this->db->count_all_results();
     }
 
-    //^_^
     public function get_privilege($id) {
         $this->db->select('privilege');
         $this->db->from('users');
         $this->db->where('id', $id);
         $query = $this->db->get();
         return $query->num_rows() > 0 ? $query->row() : null;
-    }
-
-    public function add_contest($contest, $problems) {
-        $this->db->trans_start();
-
-        //Insert contest into `contests`
-        $this->db->insert('contests', $contest);
-        $contest_id = $this->db->insert_id();
-
-        //Insert problems into `contest_problems`
-        foreach ($problems as $flag => $item) {
-            $problem = array(
-                'problem_id' => $item,
-                'contest_id' => $contest_id,
-                'flag' => chr(ord('A') + $flag)
-            );
-            $this->db->insert('contest_problems', $problem);
-        }
-
-        $this->db->trans_complete();
-
-        return $this->db->trans_status() !== false;
     }
 }
 

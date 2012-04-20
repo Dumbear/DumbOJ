@@ -9,46 +9,26 @@ class Problems extends CI_Controller {
         $buffer = array();
     }
 
-    //^_^
 	public function index($site = 'All', $offset = 0) {
-        $site = rawurldecode(html_entity_decode($site));
-        if (!in_array($site, get_available_sites())) {
+        $data = array();
+        $data['current_site'] = rawurldecode(html_entity_decode($site));
+        if (!in_array($data['current_site'], get_available_sites())) {
             redirect('/problems');
         }
         $this->load->library('pagination');
         $config = array(
-            'base_url' => site_url('problems/index/' . rawurlencode($site)),
+            'base_url' => site_url("problems/index/{$site}"),
             'uri_segment' => 4,
-            'total_rows' => $this->problems_model->count_problems($site),
+            'total_rows' => $this->problems_model->count_problems($data['current_site']),
             'per_page' => 50,
             'num_links' => 4
         );
         $this->pagination->initialize($config);
-        $data = array();
-        $data['current_site'] = $site;
-        $data['problems'] = $this->problems_model->get_problems($site, $config['per_page'], $offset);
+        $data['problems'] = $this->problems_model->get_problems($data['current_site'], $config['per_page'], $offset);
         $data['pagination'] = $this->pagination->create_links();
         $this->template->display('problems', $data);
 	}
 
-    //^_^
-    public function view($id = null) {
-        if ($id === null) {
-            show_404();
-        }
-        $data = array();
-        $data['problem'] = $this->problems_model->get_problem($id);
-        if ($data['problem'] === null) {
-            show_404();
-        }
-        $data['problem_content'] = $this->problems_model->get_problem_content($id);
-        if ($data['problem_content'] === null) {
-            show_404();
-        }
-        $this->template->display('view_problem', $data);
-    }
-
-    //^_^
     public function add() {
         $referrer = $this->agent->referrer();
 
@@ -72,7 +52,25 @@ class Problems extends CI_Controller {
         redirect($referrer);
     }
 
-    //^_^
+    public function view($id = null) {
+        if ($id === null) {
+            show_404();
+        }
+        $data = array();
+
+        //Fetch problem and content
+        $data['problem'] = $this->problems_model->get_problem($id);
+        if ($data['problem'] === null) {
+            show_404();
+        }
+        $data['problem_content'] = $this->problems_model->get_problem_content($id);
+        if ($data['problem_content'] === null) {
+            show_404();
+        }
+
+        $this->template->display('view_problem', $data);
+    }
+
     public function submit($id = null) {
         if ($id === null) {
             show_404();
@@ -125,7 +123,6 @@ class Problems extends CI_Controller {
         }
     }
 
-    //^_^
     public function status($filter = '::::', $offset = 0) {
         $data = array();
 
@@ -173,7 +170,6 @@ class Problems extends CI_Controller {
         $this->template->display('submission', $data);
     }
 
-    //^_^
     public function resubmit($id = null) {
         $referrer = $this->agent->referrer();
         $submission = $this->problems_model->get_submission($id);

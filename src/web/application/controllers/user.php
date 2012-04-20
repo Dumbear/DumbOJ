@@ -6,7 +6,6 @@ class User extends CI_Controller {
         $this->load->model('user_model');
     }
 
-    //IS OK
 	public function login() {
         if ($this->session->userdata('user_id') !== false) {
             redirect('/home');
@@ -19,7 +18,6 @@ class User extends CI_Controller {
         if ($this->form_validation->run('login') === false) {
             $data = array();
             $data['salt'] = generate_salt();
-            $data['need_to_login'] = ($this->session->flashdata('need_to_login') === 'true');
             $this->session->set_userdata('salt', $data['salt']);
             $this->session->set_flashdata('referrer', $referrer);
             $this->template->display('login', $data);
@@ -29,7 +27,6 @@ class User extends CI_Controller {
         }
 	}
 
-    //IS OK
     public function logout() {
         if ($this->session->userdata('user_id') === false) {
             redirect('/home');
@@ -43,7 +40,6 @@ class User extends CI_Controller {
         redirect($referrer);
     }
 
-    //IS OK
     public function register() {
         if ($this->session->userdata('user_id') !== false) {
             redirect('/home');
@@ -57,7 +53,6 @@ class User extends CI_Controller {
         }
     }
 
-    //IS OK
     public function profile($username = null) {
         if ($username === null) {
             if ($this->session->userdata('user_id') === false) {
@@ -90,7 +85,7 @@ class User extends CI_Controller {
         $data = array();
 
         //Parse filter conditions
-        $data['conditions'] = parse_conditions(rawurldecode($filter), array('name', 'school'));
+        $data['conditions'] = parse_conditions(rawurldecode(html_entity_decode($filter)), array('name', 'school'));
 
         //Fetch matched users
         $data['users'] = $this->user_model->search_users($data['conditions']);
@@ -98,7 +93,6 @@ class User extends CI_Controller {
         $this->template->display('search_users', $data);
     }
 
-    //IS OK
     public function ranklist($offset = 0) {
         $this->load->library('pagination');
         $config = array(

@@ -6,12 +6,11 @@ class Problems_model extends CI_Model {
         $this->load->database();
     }
 
-    //^_^
     public function get_problems($site, $limit, $offset) {
         $this->db->select('id, title, source, original_site, original_id, original_url, creation_time');
         $this->db->from('problems');
 
-        //If the site is specified
+        //If site specified
         if ($site !== '' && $site !== 'All') {
             $this->db->where('original_site', $site);
         }
@@ -22,7 +21,6 @@ class Problems_model extends CI_Model {
         return $query->result();
     }
 
-    //^_^
     public function count_problems($site) {
         $this->db->from('problems');
 
@@ -43,26 +41,6 @@ class Problems_model extends CI_Model {
         return $query->result();
     }
 
-    //^_^
-    public function get_problem($id) {
-        $this->db->select('*');
-        $this->db->from('problems');
-        $this->db->where('id', $id);
-        $query = $this->db->get();
-        return $query->num_rows() > 0 ? $query->row() : null;
-    }
-
-    //^_^
-    public function get_problem_content($problem_id, $user_id = 1) {
-        $this->db->select('*');
-        $this->db->from('problem_contents');
-        $this->db->where('problem_id', $problem_id);
-        $this->db->where('user_id', $user_id);
-        $query = $this->db->get();
-        return $query->num_rows() > 0 ? $query->row() : null;
-    }
-
-    //^_^
     public function get_problem_key($original_site, $original_id) {
         $this->db->select('id');
         $this->db->from('problems');
@@ -72,7 +50,6 @@ class Problems_model extends CI_Model {
         return $query->num_rows() > 0 ? $query->row() : null;
     }
 
-    //^_^
     public function get_problem_content_key($problem_id, $user_id) {
         $this->db->select('problem_id, user_id');
         $this->db->from('problem_contents');
@@ -82,7 +59,6 @@ class Problems_model extends CI_Model {
         return $query->num_rows() > 0 ? $query->row() : null;
     }
 
-    //^_^
     public function insert_or_update_problem($problem) {
         $key = $this->get_problem_key($problem['original_site'], $problem['original_id']);
         if ($key === null) {
@@ -97,7 +73,6 @@ class Problems_model extends CI_Model {
         }
     }
 
-    //^_^
     public function insert_or_update_problem_content($problem_content) {
         $key = $this->get_problem_content_key($problem_content['problem_id'], $problem_content['user_id']);
         if ($key === null) {
@@ -113,7 +88,23 @@ class Problems_model extends CI_Model {
         }
     }
 
-    //^_^
+    public function get_problem($id) {
+        $this->db->select('*');
+        $this->db->from('problems');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->num_rows() > 0 ? $query->row() : null;
+    }
+
+    public function get_problem_content($problem_id, $user_id = 1) {
+        $this->db->select('*');
+        $this->db->from('problem_contents');
+        $this->db->where('problem_id', $problem_id);
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get();
+        return $query->num_rows() > 0 ? $query->row() : null;
+    }
+
     public function get_submissions($conditions, $limit, $offset) {
         $now = date('Y-m-d H:i:s');
         $this->db->select('submissions.id, problem_id, original_site, original_problem_id, contest_id, submissions.user_id, username, language, time, memory, result, result_key, LENGTH(`source_code`) AS `length`, is_shared, submission_time');
@@ -128,7 +119,6 @@ class Problems_model extends CI_Model {
         return $query->result();
     }
 
-    //^_^
     public function count_submissions($conditions) {
         $now = date('Y-m-d H:i:s');
         $this->db->from('submissions');
@@ -141,7 +131,6 @@ class Problems_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    //^_^
     public function get_submission($id) {
         $this->db->select('submissions.*, LENGTH(`source_code`) AS `length`, username');
         $this->db->from('submissions');
@@ -151,7 +140,7 @@ class Problems_model extends CI_Model {
         return $query->num_rows() > 0 ? $query->row() : null;
     }
 
-    //^_^
+    //TODO check
     public function add_submission($submission, $privilege) {
         $languages = get_available_languages($submission['original_site']);
         $submission['language'] = $languages[$submission['language_value']];
@@ -182,7 +171,7 @@ class Problems_model extends CI_Model {
         }
     }
 
-    //^_^
+    //TODO check
     public function update_submission($id, $submission) {
         $id = (int)$id;
         $submission['result_key'] = get_result_key($submission['result']);
@@ -232,7 +221,6 @@ class Problems_model extends CI_Model {
         return $this->db->trans_status() !== false;
     }
 
-    //^_^
     public function reset_submission($id, $result = 'Queuing') {
         $submission = array(
             'original_id' => null,
@@ -246,7 +234,6 @@ class Problems_model extends CI_Model {
         }
     }
 
-    //^_^
     public function get_privilege($id) {
         $this->db->select('privilege');
         $this->db->from('users');
