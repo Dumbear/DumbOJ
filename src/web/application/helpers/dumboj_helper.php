@@ -37,7 +37,8 @@ if (!function_exists('get_available_sites')) {
         //Could add more sites here.
         return array(
             '' => 'All',
-            'http://poj.org' => 'POJ'
+            'http://poj.org' => 'POJ',
+            'http://acm.hdu.edu.cn' => 'HDU'
         );
     }
 }
@@ -55,6 +56,15 @@ if (!function_exists('get_available_languages')) {
                     4 => 'C++',
                     5 => 'C',
                     6 => 'Fortran'
+                );
+            case 'HDU':
+                return array(
+                    0 => 'G++',
+                    1 => 'GCC',
+                    2 => 'C++',
+                    3 => 'C',
+                    4 => 'Pascal',
+                    5 => 'Java'
                 );
             default:
                 return array();
@@ -96,28 +106,35 @@ if (!function_exists('get_all_languages')) {
 
 if (!function_exists('get_result_key')) {
     function get_result_key($result) {
-        switch (strtolower(trim($result))) {
-            case 'accepted':
-                return 0;
-            case 'wrong answer':
-                return 1;
-            case 'time limit exceeded':
-                return 2;
-            case 'memory limit exceeded':
-                return 3;
-            case 'output limit exceeded':
-                return 4;
-            case 'compile error':
-                return 5;
-            case 'presentation error':
-                return 6;
-            case 'runtime error':
-                return 7;
-            case 'system error': case 'dumbjudge error':
-                return 8;
-            default:
-                return -1;
+        $result = strtolower(preg_replace('/\W/', '', $result));
+        if (strpos($result, 'accepted') !== false) {
+            return 0;
         }
+        if (strpos($result, 'wronganswer') !== false) {
+            return 1;
+        }
+        if (strpos($result, 'timelimitexceeded') !== false) {
+            return 2;
+        }
+        if (strpos($result, 'memorylimitexceeded') !== false) {
+            return 3;
+        }
+        if (strpos($result, 'outputlimitexceeded') !== false) {
+            return 4;
+        }
+        if (strpos($result, 'compileerror') !== false || strpos($result, 'compilationerror') !== false) {
+            return 5;
+        }
+        if (strpos($result, 'presentationerror') !== false) {
+            return 6;
+        }
+        if (strpos($result, 'runtimeerror') !== false) {
+            return 7;
+        }
+        if (strpos($result, 'systemerror') !== false || strpos($result, 'dumbjudgeerror') !== false) {
+            return 8;
+        }
+        return -1;
     }
 }
 
@@ -174,18 +191,6 @@ if (!function_exists('parse_conditions')) {
             return $result;
         }
         $values = explode($separator, $value);
-        for ($i = 0; $i < count($values); ++$i) {
-            if ($values[$i] !== '') {
-                $result[$names[$i]] = $values[$i];
-            }
-        }
-        return $result;
-    }
-}
-
-if (!function_exists('parse_conditions2')) {
-    function parse_conditions2($names, $values) {
-        $result = array();
         for ($i = 0; $i < count($values); ++$i) {
             if ($values[$i] !== '') {
                 $result[$names[$i]] = $values[$i];

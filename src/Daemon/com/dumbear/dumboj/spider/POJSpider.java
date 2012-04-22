@@ -28,8 +28,8 @@ public class POJSpider extends Spider {
         problem.setOriginalUrl("http://poj.org/problem?id=" + id);
         problem.setOriginalSite(SITE);
         problem.setOriginalId(id);
-        problem.setMemoryLimit(Integer.parseInt(Utility.getMatcherString(source, "<b>Memory Limit:</b> (\\d{2,})K</td>", 1)));
         problem.setTimeLimit(Integer.parseInt(Utility.getMatcherString(source, "<b>Time Limit:</b> (\\d{3,})MS</td>", 1)));
+        problem.setMemoryLimit(Integer.parseInt(Utility.getMatcherString(source, "<b>Memory Limit:</b> (\\d{2,})K</td>", 1)));
         problemContent.setUserId(1);
         problemContent.setDescription(Utility.getMatcherString(source, "<p class=\"pst\">Description</p>([\\s\\S]*?)<p class=\"pst\">", 1));
         problemContent.setInput(Utility.getMatcherString(source, "<p class=\"pst\">Input</p>([\\s\\S]*?)<p class=\"pst\">", 1));
@@ -37,6 +37,6 @@ public class POJSpider extends Spider {
         problemContent.setSampleInput(Utility.getMatcherString(source, "<p class=\"pst\">Sample Input</p>([\\s\\S]*?)<p class=\"pst\">", 1));
         problemContent.setSampleOutput(Utility.getMatcherString(source, "<p class=\"pst\">Sample Output</p>([\\s\\S]*?)<p class=\"pst\">", 1));
         problemContent.setHint(Utility.getMatcherString(source, "<p class=\"pst\">Hint</p>([\\s\\S]*?)<p class=\"pst\">", 1));
-        problemContent.setRemark("Created by POJSpider.");
+        problemContent.setRemark("Created by " + SITE + "Spider.");
     }
 }
