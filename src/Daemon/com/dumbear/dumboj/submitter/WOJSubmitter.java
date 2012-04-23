@@ -176,7 +176,7 @@ public class WOJSubmitter extends Submitter {
 
     private void fetchAdditionalInfo() throws Exception {
         try {
-            String source = Utility.getHtmlSourceByGet(additionalUrl + submission.originalId, DEFAULT_CHARSET, null);
+            String source = Utility.getHtmlSourceByGet(additionalUrl + submission.originalId, DEFAULT_CHARSET, cookie);
             submission.additionalInfo = Utility.getMatcherString(source, "<div class=\"code\"><pre>([\\s\\S]*?)</pre></div>", 1);
         } catch (Exception e) {
             R.logger.warning("Fetch additional info failed: " + e);
