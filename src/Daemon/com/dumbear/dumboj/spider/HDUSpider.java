@@ -13,7 +13,6 @@ public class HDUSpider extends Spider {
         if (source.contains("<DIV>Invalid Parameter.</DIV>") || source.contains("<DIV>No such problem - ")) {
             throw new Exception("Problem not available");
         }
-        //TODO check for it!
         source = source.replaceAll("(src|href)=(?!['\"]|[a-zA-Z0-9+.-]*:)(\\./|/)?([^\\s>]*)", "$1=\"http://acm.hdu.edu.cn/$3\"");
         source = source.replaceAll("(src|href)='(?![a-zA-Z0-9+.-]*:)(\\./|/)?([^']*)'", "$1=\"http://acm.hdu.edu.cn/$3\"");
         source = source.replaceAll("(src|href)=\"(?![a-zA-Z0-9+.-]*:)(\\./|/)?([^\"]*)\"", "$1=\"http://acm.hdu.edu.cn/$3\"");

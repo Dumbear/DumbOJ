@@ -52,13 +52,13 @@
 <?php if ($problem_content->sample_input !== null) { ?>
     <div>
       <div class="field">Sample Input</div>
-      <div class="container"><?php echo $problem_content->sample_input; ?></div>
+      <div class="container" style="font-family: Courier New, monospace"><?php echo $problem_content->sample_input; ?></div>
     </div>
 <?php } ?>
 <?php if ($problem_content->sample_output !== null) { ?>
     <div>
       <div class="field">Sample Output</div>
-      <div class="container"><?php echo $problem_content->sample_output; ?></div>
+      <div class="container" style="font-family: Courier New, monospace"><?php echo $problem_content->sample_output; ?></div>
     </div>
 <?php } ?>
 <?php if ($problem_content->hint !== null) { ?>

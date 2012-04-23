@@ -172,7 +172,7 @@ public class POJSubmitter extends Submitter {
     private void fetchAdditionalInfo() throws Exception {
         try {
             String source = Utility.getHtmlSourceByGet(additionalUrl + submission.originalId, DEFAULT_CHARSET, null);
-            submission.additionalInfo = Utility.getMatcherString(source, "<pre>[\\s\\S]*?</pre>", 0);
+            submission.additionalInfo = Utility.getMatcherString(source, "<pre>([\\s\\S]*?)</pre>", 1);
         } catch (Exception e) {
             R.logger.warning("Fetch additional info failed: " + e);
             throw new Exception("Fetch additional info failed");
@@ -189,6 +189,7 @@ public class POJSubmitter extends Submitter {
             int lastId = fetchLastId();
             submit();
             fetchResult(lastId);
+            Thread.sleep(4096);
             R.updateSubmission(submission);
         } catch (Exception e) {
             R.updateSubmission(submission.id, "DumbJudge Error");

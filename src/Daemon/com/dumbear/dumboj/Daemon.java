@@ -3,7 +3,6 @@ package com.dumbear.dumboj;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-//^_^
 public class Daemon {
     /**
      * @param args

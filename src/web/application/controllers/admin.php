@@ -16,8 +16,8 @@ class Admin extends CI_Controller {
         $problem = array(
             'title' => $this->input->post('title'),
             'source' => $this->input->post('source'),
-            'time_limit' => parse_null($this->input->post('time_limit')),
-            'memory_limit' => parse_null($this->input->post('memory_limit')),
+            'time_limit' => nullable_input($this->input->post('time_limit')),
+            'memory_limit' => nullable_input($this->input->post('memory_limit')),
             'original_site' => $this->input->post('original_site'),
             'original_id' => $this->input->post('original_id'),
             'original_url' => $this->input->post('original_url'),
@@ -25,12 +25,12 @@ class Admin extends CI_Controller {
         );
         $problem_content = array(
             'user_id' => 1,
-            'description' => parse_null($this->input->post('description')),
-            'input' => parse_null($this->input->post('input')),
-            'output' => parse_null($this->input->post('output')),
-            'sample_input' => parse_null($this->input->post('sample_input')),
-            'sample_output' => parse_null($this->input->post('sample_output')),
-            'hint' => parse_null($this->input->post('hint')),
+            'description' => nullable_input($this->input->post('description')),
+            'input' => nullable_input($this->input->post('input')),
+            'output' => nullable_input($this->input->post('output')),
+            'sample_input' => nullable_input($this->input->post('sample_input')),
+            'sample_output' => nullable_input($this->input->post('sample_output')),
+            'hint' => nullable_input($this->input->post('hint')),
             'remark' => $this->input->post('remark'),
             'creation_time' => date('Y-m-d H:i:s')
         );

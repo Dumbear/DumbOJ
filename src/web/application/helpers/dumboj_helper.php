@@ -38,7 +38,8 @@ if (!function_exists('get_available_sites')) {
         return array(
             '' => 'All',
             'http://poj.org' => 'POJ',
-            'http://acm.hdu.edu.cn' => 'HDU'
+            'http://acm.hdu.edu.cn' => 'HDU',
+            'http://acm.whu.edu.cn/land' => 'WOJ'
         );
     }
 }
@@ -66,6 +67,13 @@ if (!function_exists('get_available_languages')) {
                     4 => 'Pascal',
                     5 => 'Java'
                 );
+            case 'WOJ':
+                return array(
+                    1 => 'C',
+                    2 => 'C++',
+                    3 => 'Java',
+                    4 => 'Pascal'
+                );
             default:
                 return array();
         }
@@ -85,7 +93,8 @@ if (!function_exists('get_all_results')) {
             5 => 'Compile Error',
             6 => 'Presentation Error',
             7 => 'Runtime Error',
-            8 => 'System Error'
+            8 => 'Restricted Function',
+            16 => 'System Error'
         );
     }
 }
@@ -131,8 +140,11 @@ if (!function_exists('get_result_key')) {
         if (strpos($result, 'runtimeerror') !== false) {
             return 7;
         }
-        if (strpos($result, 'systemerror') !== false || strpos($result, 'dumbjudgeerror') !== false) {
+        if (strpos($result, 'restrictedfunction') !== false) {
             return 8;
+        }
+        if (strpos($result, 'systemerror') !== false || strpos($result, 'dumbjudgeerror') !== false) {
+            return 16;
         }
         return -1;
     }
@@ -169,12 +181,6 @@ if (!function_exists('get_brush')) {
             default:
                 return '';
         }
-    }
-}
-
-if (!function_exists('parse_null')) {
-    function parse_null($input) {
-        return $input === false || trim($input) === '' ? null : $input;
     }
 }
 

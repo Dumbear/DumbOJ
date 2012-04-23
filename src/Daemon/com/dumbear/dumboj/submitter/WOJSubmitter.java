@@ -18,9 +18,9 @@ import org.w3c.dom.NodeList;
 import com.dumbear.dumboj.R;
 import com.dumbear.dumboj.util.Utility;
 
-public class HDUSubmitter extends Submitter {
-    public static final String SITE = "HDU";
-    public static final String DEFAULT_CHARSET = "GB2312";
+public class WOJSubmitter extends Submitter {
+    public static final String SITE = "WOJ";
+    public static final String DEFAULT_CHARSET = "UTF-8";
 
     private static BlockingQueue<Integer> accountIds = new LinkedBlockingQueue<Integer>();
     private static Account[] accounts;
@@ -45,29 +45,36 @@ public class HDUSubmitter extends Submitter {
         }
     }
 
-    public static final String homeUrl = "http://acm.hdu.edu.cn";
-    public static final String loginUrl = "http://acm.hdu.edu.cn/userloginex.php?action=login";
-    public static final String statusUrl = "http://acm.hdu.edu.cn/status.php?user=";
-    public static final String submitUrl = "http://acm.hdu.edu.cn/submit.php?action=submit";
-    public static final String additionalUrl = "http://acm.hdu.edu.cn/viewerror.php?rid=";
+    public static final String homeUrl = "http://acm.whu.edu.cn/land/";
+    public static final String saltUrl = "http://acm.whu.edu.cn/land/ajax/vcode";
+    public static final String loginUrl = "http://acm.whu.edu.cn/land/user/login";
+    public static final String doLoginUrl = "http://acm.whu.edu.cn/land/user/do_login";
+    public static final String statusUrl = "http://acm.whu.edu.cn/land/status?username=";
+    public static final String submitUrl = "http://acm.whu.edu.cn/land/submit/do_submit";
+    public static final String additionalUrl = "http://acm.whu.edu.cn/land/source/info?source_id=";
 
     private int accountId;
     private Account account;
     private StringBuffer cookie;
 
     private void login() throws Exception {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("username=");
-        buffer.append(URLEncoder.encode(account.username, DEFAULT_CHARSET));
-        buffer.append("&userpass=");
-        buffer.append(URLEncoder.encode(account.password, DEFAULT_CHARSET));
-        buffer.append("&login=");
-        buffer.append(URLEncoder.encode("Sign In", DEFAULT_CHARSET));
         try {
-            byte[] bytes = buffer.toString().getBytes(DEFAULT_CHARSET);
             for (int i = 3; i > 0; --i) {
                 cookie = new StringBuffer();
-                Utility.getHtmlSourceByPost(loginUrl, DEFAULT_CHARSET, bytes, cookie);
+                //Utility.getHtmlSourceByGet(loginUrl, DEFAULT_CHARSET, cookie);
+                String salt = Utility.getHtmlSourceByPost(saltUrl, DEFAULT_CHARSET, new byte[0], cookie);
+                StringBuffer buffer = new StringBuffer();
+                buffer.append("origURL=");
+                buffer.append(URLEncoder.encode("http://acm.whu.edu.cn/land", DEFAULT_CHARSET));
+                buffer.append("&passEnc=");
+                buffer.append(URLEncoder.encode(Utility.md5((Utility.md5(account.password, DEFAULT_CHARSET) + salt), DEFAULT_CHARSET), DEFAULT_CHARSET));
+                buffer.append("&seed=");
+                buffer.append(URLEncoder.encode(salt, DEFAULT_CHARSET));
+                buffer.append("&username=");
+                buffer.append(URLEncoder.encode(account.username, DEFAULT_CHARSET));
+                buffer.append("&password=");
+                byte[] bytes = buffer.toString().getBytes(DEFAULT_CHARSET);
+                Utility.getHtmlSourceByPost(doLoginUrl, DEFAULT_CHARSET, bytes, cookie);
                 if (!checkLogin()) {
                     if (i == 1) {
                         throw new Exception("Cannot login");
@@ -84,7 +91,7 @@ public class HDUSubmitter extends Submitter {
 
     private boolean checkLogin() throws Exception {
         String source = Utility.getHtmlSourceByGet(homeUrl, DEFAULT_CHARSET, cookie);
-        return source.contains(account.username);
+        return source.contains("Logout");
     }
 
     private int fetchLastId() throws Exception {
@@ -92,8 +99,8 @@ public class HDUSubmitter extends Submitter {
         try {
             for (int i = 3; i > 0; --i) {
                 String source = Utility.getHtmlSourceByGet(statusUrl + account.username, DEFAULT_CHARSET, null);
-                id = Utility.getMatcherString(source, "<td height=22px>(\\d+)", 1);
-                if (id.isEmpty() && !source.contains("<h1>Realtime Status</h1>")) {
+                id = Utility.getMatcherString(source, "<td style=\"text-align:center;\">(\\d+)", 1);
+                if (id.isEmpty() && !source.contains("Status  of")) {
                     if (i == 1) {
                         throw new Exception("Cannot fetch last id");
                     }
@@ -111,18 +118,18 @@ public class HDUSubmitter extends Submitter {
 
     private void submit() throws Exception {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("check=");
-        buffer.append(URLEncoder.encode("0", DEFAULT_CHARSET));
-        buffer.append("&problemid=");
+        buffer.append("problem_id=");
         buffer.append(URLEncoder.encode(submission.problemId, DEFAULT_CHARSET));
-        buffer.append("&language=");
+        buffer.append("&lang=");
         buffer.append(URLEncoder.encode(submission.language, DEFAULT_CHARSET));
-        buffer.append("&usercode=");
+        buffer.append("&share+code=");
+        buffer.append(URLEncoder.encode("1", DEFAULT_CHARSET));
+        buffer.append("&source=");
         buffer.append(URLEncoder.encode(submission.sourceCode, DEFAULT_CHARSET));
         try {
             byte[] bytes = buffer.toString().getBytes(DEFAULT_CHARSET);
             String source = Utility.getHtmlSourceByPost(submitUrl, DEFAULT_CHARSET, bytes, cookie);
-            if (!source.trim().isEmpty()) {
+            if (!source.contains("<div id=\"tt\">Operation Accepted!</div>")) {
                 throw new Exception("Submit rejected");
             }
         } catch (Exception e) {
@@ -132,12 +139,12 @@ public class HDUSubmitter extends Submitter {
     }
 
     private void fetchResult(int lastId) throws Exception {
-        String regex = "<td height=22px>(\\d+)</td>" +
-                       "<td>[\\s\\S]*?</td>" +
-                       "<td>[\\s\\S]*?<font[\\s\\S]*?>([\\s\\S]*?)</font>[\\s\\S]*?</td>" +
-                       "<td>[\\s\\S]*?</td>" +
-                       "<td>([\\s\\S]*?)(?:MS)??</td>" +
-                       "<td>([\\s\\S]*?)(?:K)??</td>";
+        String regex = "<td style=\"text-align:center;\">(\\d+)</td>\\s*" +
+                       "<td style=\"text-align:center;\">[\\s\\S]*?</td>\\s*" +
+                       "<td style=\"text-align:center;\">[\\s\\S]*?</td>\\s*" +
+                       "<td style=\"text-align:center;\">[\\s\\S]*?<font[\\s\\S]*?>([\\s\\S]*?)</font>[\\s\\S]*?</td>\\s*" +
+                       "<td style=\"text-align:center;\">(\\d*)</td>\\s*" +
+                       "<td style=\"text-align:center;\">(\\d*)</td>";
         Pattern pattern = Pattern.compile(regex);
         try {
             long now = new Date().getTime();
@@ -149,8 +156,8 @@ public class HDUSubmitter extends Submitter {
                     submission.result = matcher.group(2).trim();
                     if (!submission.result.contains("ing")) {
                         if (submission.result.equals("Accepted")) {
-                            submission.time = Integer.parseInt(matcher.group(3));
-                            submission.memory = Integer.parseInt(matcher.group(4));
+                            submission.memory = Integer.parseInt(matcher.group(3));
+                            submission.time = Integer.parseInt(matcher.group(4));
                         } else if (submission.result.equals("Compilation Error")) {
                             fetchAdditionalInfo();
                         }
@@ -170,7 +177,7 @@ public class HDUSubmitter extends Submitter {
     private void fetchAdditionalInfo() throws Exception {
         try {
             String source = Utility.getHtmlSourceByGet(additionalUrl + submission.originalId, DEFAULT_CHARSET, null);
-            submission.additionalInfo = Utility.getMatcherString(source, "<pre>([\\s\\S]*?)</pre>", 1);
+            submission.additionalInfo = Utility.getMatcherString(source, "<div class=\"code\"><pre>([\\s\\S]*?)</pre></div>", 1);
         } catch (Exception e) {
             R.logger.warning("Fetch additional info failed: " + e);
             throw new Exception("Fetch additional info failed");

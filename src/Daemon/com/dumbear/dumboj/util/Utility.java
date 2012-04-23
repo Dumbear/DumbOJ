@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.security.MessageDigest;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -124,5 +125,20 @@ public class Utility {
     public static String getMatcherString(String input, Pattern pattern, int group) {
         Matcher matcher = pattern.matcher(input);
         return matcher.find() ? matcher.group(group) : "";
+    }
+
+    public static String md5(String data, String charsetName) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(data.getBytes(charsetName));
+            StringBuffer buffer = new StringBuffer();
+            for (byte b : md.digest()) {
+                buffer.append(Integer.toHexString((b >>> 4) & 0xF));
+                buffer.append(Integer.toHexString((b >>> 0) & 0xF));
+            }
+            return buffer.toString();
+        } catch (Exception e) {
+            return "";
+        }
     }
 }
