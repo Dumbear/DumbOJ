@@ -84,7 +84,7 @@
 <?php         } ?>
               <td><a href="user/profile/<?php echo $item->username; ?>"><?php echo $item->username; ?></a></td>
               <td><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $flag_map[$item->problem_id]; ?>"><?php echo $flag_map[$item->problem_id]; ?></a></td>
-              <td class="<?php echo $result_class; ?>"><?php echo htmlspecialchars($result); ?></td>
+              <td class="<?php echo $result_class; ?>"><?php echo $result; ?></td>
               <td>N/A</td>
               <td>N/A</td>
               <td>N/A</td>
@@ -106,7 +106,7 @@
 <?php         } ?>
               <td><a href="user/profile/<?php echo $item->username; ?>"><?php echo $item->username; ?></a></td>
               <td><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $flag_map[$item->problem_id]; ?>"><?php echo $flag_map[$item->problem_id]; ?></a></td>
-              <td class="result<?php echo $item->result_key; ?>"><?php echo htmlspecialchars($item->result); ?><?php echo $refresh; ?></td>
+              <td class="result<?php echo $item->result_key; ?>"><?php echo $item->result; ?><?php echo $refresh; ?></td>
               <td><?php echo htmlspecialchars($item->language); ?></td>
               <td><?php echo $item->time === null ? 'N/A' : "{$item->time}MS"; ?></td>
               <td><?php echo $item->memory === null ? 'N/A' : "{$item->memory}KB"; ?></td>

@@ -62,7 +62,7 @@
 ?>
               </tr>
 <?php             } ?>
-              <tr class="<?php echo alternator('even', 'odd'); ?>">
+              <tr>
 <?php         } ?>
                 <td><div><a href="problems/view/<?php echo $solution->problem_id; ?>"><?php echo htmlspecialchars($solution->original_problem_id); ?></a></div></td>
 <?php         ++$count;

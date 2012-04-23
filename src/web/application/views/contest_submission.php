@@ -35,7 +35,7 @@
             <td><?php echo $submission->id; ?></td>
             <td><a href="user/profile/<?php echo $submission->username; ?>"><?php echo $submission->username; ?></a></td>
             <td><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $problem->flag; ?>"><?php echo $problem->flag; ?></a></td>
-            <td class="<?php echo $result_class; ?>"><?php echo htmlspecialchars($result); ?></td>
+            <td class="<?php echo $result_class; ?>"><?php echo $result; ?></td>
             <td>N/A</td>
             <td>N/A</td>
             <td>N/A</td>
@@ -56,7 +56,7 @@
             <td><?php echo $submission->id; ?></td>
             <td><a href="user/profile/<?php echo $submission->username; ?>"><?php echo $submission->username; ?></a></td>
             <td><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $problem->flag; ?>"><?php echo $problem->flag; ?></a></td>
-            <td class="result<?php echo $submission->result_key; ?>"><?php echo htmlspecialchars($submission->result); ?><?php echo $refresh; ?></td>
+            <td class="result<?php echo $submission->result_key; ?>"><?php echo $submission->result; ?><?php echo $refresh; ?></td>
             <td><?php echo htmlspecialchars($submission->language); ?></td>
             <td><?php echo $submission->time === null ? 'N/A' : "{$submission->time}MS"; ?></td>
             <td><?php echo $submission->memory === null ? 'N/A' : "{$submission->memory}KB"; ?></td>
