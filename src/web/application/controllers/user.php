@@ -81,6 +81,25 @@ class User extends CI_Controller {
         $this->template->display('profile', $data);
     }
 
+    public function update() {
+        if ($this->session->userdata('user_id') === false) {
+            $this->session->set_flashdata('referrer', current_url());
+            $this->session->set_flashdata('need_to_login', 'true');
+            redirect('/user/login');
+        }
+        $this->load->library('form_validation');
+        if ($this->form_validation->run('update_profile') === false) {
+            $data = array();
+            $data['salt'] = generate_salt();
+            $data['user'] = $this->user_model->get_profile($this->session->userdata('username'));
+            $this->session->set_userdata('salt', $data['salt']);
+            $this->template->display('update_profile', $data);
+        } else {
+            $this->session->set_flashdata('message', 'You have successfully updated your profile!');
+            redirect('/user/profile');
+        }
+    }
+
     public function search($filter) {
         $data = array();
 

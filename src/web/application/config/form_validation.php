@@ -65,6 +65,63 @@ $config = array(
             'rules' => 'trim|required|check_register'
         )
     ),
+    'update_profile' => array(
+        array(
+            'field' => 'old_password',
+            'label' => '"Old password"',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'new_password',
+            'label' => '"New password"',
+            'rules' => 'min_length[6]|max_length[32]|matches[confirm_password]'
+        ),
+        array(
+            'field' => 'confirm_password',
+            'label' => '"Confirm password"',
+            'rules' => 'matches[new_password]'
+        ),
+        array(
+            'field' => 'real_name',
+            'label' => '"Real name"',
+            'rules' => 'trim|max_length[64]'
+        ),
+        array(
+            'field' => 'school',
+            'label' => '"School"',
+            'rules' => 'trim|max_length[64]'
+        ),
+        array(
+            'field' => 'email',
+            'label' => '"Email"',
+            'rules' => 'trim|max_length[64]|valid_email'
+        ),
+        array(
+            'field' => 'share_email',
+            'label' => '"Share email"',
+            'rules' => 'trim'
+        ),
+        array(
+            'field' => 'share_code',
+            'label' => '"Share code"',
+            'rules' => 'trim'
+        ),
+        array(
+            'field' => 'salt',
+            'label' => '"Salt"',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'old_key',
+            'label' => '"Old key"',
+            'rules' => 'trim|required|check_update_profile'
+        ),
+        array(
+            'field' => 'new_key',
+            'label' => '"New key"',
+            'rules' => 'trim'
+        )
+    ),
     'submit_problem' => array(
         array(
             'field' => 'language',

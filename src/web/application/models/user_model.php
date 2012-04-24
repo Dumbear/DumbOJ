@@ -24,6 +24,11 @@ class User_model extends CI_Model {
         }
     }
 
+    public function update_profile($id, $user) {
+        $this->db->where('id', $id);
+        return $this->db->update('users', $user);
+    }
+
     public function get_profile($username) {
         $this->db->select('id, username, real_name, school, email, share_email, share_code, privilege, submissions, solutions, registration_time, enabled');
         $this->db->from('users');

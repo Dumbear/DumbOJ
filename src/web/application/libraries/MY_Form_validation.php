@@ -44,9 +44,54 @@ class MY_Form_validation extends CI_Form_validation {
         if ($this->CI->user_model->register($user) === false) {
             $this->set_message('check_register', 'Invalid register, please try again later.');
             return false;
-        } else {
+        }
+        return true;
+    }
+
+    public function check_update_profile() {
+        //Check salt
+        $session_salt = $this->CI->session->userdata('salt');
+        $this->CI->session->unset_userdata('salt');
+        if (count($this->_error_array) !== 0) {
             return true;
         }
+        $salt = trim($this->CI->input->post('salt'));
+        $old_key = trim($this->CI->input->post('old_key'));
+        if ($session_salt !== $salt) {
+            $this->set_message('check_update_profile', 'Invalid update, please try again later.');
+            log_message('error', 'Salt is not valid, suspicious request');
+            return false;
+        }
+
+        //Check username and old password
+        $login_info = $this->CI->user_model->get_login_info($this->CI->session->userdata('username'));
+        if ($login_info === null) {
+            $this->set_message('check_update_profile', 'Invalid update, please try again later.');
+            return false;
+        }
+        if ($old_key !== md5($login_info->password . $salt)) {
+            $this->set_message('check_update_profile', 'Invalid Old password.');
+            return false;
+        }
+
+        //Update profile
+        $user = array(
+            'password' => trim($this->CI->input->post('new_key')),
+            'real_name' => nullable_input($this->CI->input->post('real_name')),
+            'school' => nullable_input($this->CI->input->post('school')),
+            'email' => nullable_input($this->CI->input->post('email')),
+            'share_email' => ($this->CI->input->post('share_email') === 'true' ? 1 : 0),
+            'share_code' => ($this->CI->input->post('share_code') === 'true' ? 1 : 0)
+        );
+        if ($user['password'] === '') {
+            unset($user['password']);
+        }
+        if ($this->CI->user_model->update_profile($login_info->id, $user) === false) {
+            $this->set_message('check_update_profile', 'Invalid update, please try again later.');
+            return false;
+        }
+        $this->CI->session->set_userdata('share_code', $user['share_code']);
+        return true;
     }
 
     public function check_submit_language($language) {

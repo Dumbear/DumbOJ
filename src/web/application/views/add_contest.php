@@ -115,8 +115,10 @@
         if (count <= 0 || count >= 26) {
             return;
         }
-        var $problem = $("table.problems tr.problem:last").clone();
+        var $last = $("table.problems tr.problem:last");
+        var $problem = $last.clone();
         $("td:first", $problem).text(String.fromCharCode("A".charCodeAt(0) + count));
+        $("[name=\"sites[]\"]", $problem).val($("[name=\"sites[]\"]", $last).val());
         $id = $("[name=\"ids[]\"]", $problem);
         $id.val($id.val().match(/^\s*\d+\s*$/) ? parseInt($id.val()) + 1 : "");
         $("table.problems tbody").append($problem);

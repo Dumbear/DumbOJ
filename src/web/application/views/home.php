@@ -44,9 +44,15 @@
       <div class="title">Search users</div>
       <hr />
       <form class="search_users" action="" method="post">
-        <span>Name:</span>
-        <input style="width: 10em" name="name" />
-        <input type="submit" value="Search" />
+        <table>
+          <tbody>
+            <tr>
+              <td><span>Name:</span></td>
+              <td><input style="width: 100%" name="name" /></td>
+              <td><input style="width: 100%" type="submit" value="Search" /></td>
+            </tr>
+          </tbody>
+        </table>
       </form>
     </div>
   </div>
@@ -72,7 +78,6 @@
       <div class="title">To do list</div>
       <hr />
       <ul style="margin-left: 2em">
-        <li>Allow users to update profile</li>
         <li>Allow users to edit contest</li>
         <li>Allow searching problems</li>
         <li>Allow administration</li>
