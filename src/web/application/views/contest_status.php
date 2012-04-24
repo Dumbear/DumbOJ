@@ -20,7 +20,7 @@
         &nbsp;&nbsp;Username:
         <input style="width: 8em" name="username" value="<?php echo isset($conditions['username']) ? htmlspecialchars($conditions['username']) : ''; ?>" />
         &nbsp;&nbsp;Language:
-        <select name="language">
+        <select name="language"<?php if ($status === 'Running') echo ' disabled="disabled"'; ?>>
 <?php
       foreach (get_all_languages() as $key => $language) {
           $selected = '';

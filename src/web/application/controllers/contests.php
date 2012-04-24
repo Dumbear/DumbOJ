@@ -252,6 +252,7 @@ class Contests extends CI_Controller {
         }
         if ($data['status'] === 'Running') {
             unset($data['conditions']['result_key']);
+            unset($data['conditions']['language_key']);
         }
 
         $this->load->library('pagination');
