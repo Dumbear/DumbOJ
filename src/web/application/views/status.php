@@ -82,8 +82,8 @@
               <td><a href="problems/view/<?php echo $item->problem_id; ?>"><?php echo htmlspecialchars($item->original_site); ?> - <?php echo htmlspecialchars($item->original_problem_id); ?></a></td>
               <td class="result<?php echo $item->result_key; ?>"><?php echo $item->result; ?><?php echo $refresh; ?></td>
               <td><?php echo htmlspecialchars($item->language); ?></td>
-              <td><?php echo $item->time === null ? 'N/A' : "{$item->time}MS"; ?></td>
-              <td><?php echo $item->memory === null ? 'N/A' : "{$item->memory}KB"; ?></td>
+              <td><?php echo $item->time === null ? '' : "{$item->time}MS"; ?></td>
+              <td><?php echo $item->memory === null ? '' : "{$item->memory}KB"; ?></td>
               <td><?php echo $item->length; ?>B</td>
               <td><?php echo $item->submission_time; ?></td>
             </tr>

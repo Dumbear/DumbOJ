@@ -69,7 +69,7 @@ class User extends CI_Controller {
         }
         $data['is_self'] = ((int)$data['profile']->id === $this->session->userdata('user_id'));
         if ((int)$data['profile']->enabled === 0) {
-            $data['rank'] = 'N/A';
+            $data['rank'] = '';
         } else {
             $data['rank'] = $this->user_model->get_rank(
                 $data['profile']->submissions,

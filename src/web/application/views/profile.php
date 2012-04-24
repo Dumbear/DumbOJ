@@ -20,9 +20,7 @@
         <li><span class="field">Success: </span><?php echo sprintf('%.2f', $profile->submissions > 0 ? $profile->solutions * 100.0 / $profile->submissions : 0); ?>%</li>
 <?php
       $email = $profile->email;
-      if ($email === null) {
-          $email = 'N/A';
-      } else {
+      if ($email !== null) {
           if ($is_self || (int)$profile->share_email === 1) {
               $email = str_replace('@', '[#at]', htmlspecialchars($email));
               if ((int)$profile->share_email === 0) {
@@ -34,7 +32,7 @@
       }
 ?>
         <li><span class="field">Email: </span><?php echo $email; ?></li>
-        <li><span class="field">Member since: </span><?php echo $profile->registration_time === null ? 'N/A' : $profile->registration_time; ?></li>
+        <li><span class="field">Member since: </span><?php echo $profile->registration_time; ?></li>
       </ul>
 <?php if ($is_self) { ?>
       <div><a href="user/update">Update my profile</a></div>

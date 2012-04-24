@@ -47,7 +47,9 @@
         <thead>
           <tr>
             <th style="width: 6em">Problem</th>
+<?php         if ($status === 'Ended' || (int)$contest->user_id === $this->session->userdata('user_id') || can_admin($this->session->userdata('privilege'))) { ?>
             <th style="width: 14em">Origin</th>
+<?php         } ?>
             <th>Title</th>
             <th style="width: 14em" colspan="2">Statistics (Yes/All)</th>
           </tr>
@@ -58,8 +60,6 @@
             <td><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $problem->flag; ?>"><?php echo $problem->flag; ?></a></td>
 <?php             if ($status === 'Ended' || (int)$contest->user_id === $this->session->userdata('user_id') || can_admin($this->session->userdata('privilege'))) { ?>
             <td><div><a href="<?php echo $problem->original_url; ?>"><?php echo htmlspecialchars($problem->original_site); ?> - <?php echo htmlspecialchars($problem->original_id); ?></a></div></td>
-<?php             } else { ?>
-            <td>N/A</td>
 <?php             } ?>
             <td style="text-align: left"><div><a href="contests/<?php echo $contest->id; ?>/problem/<?php echo $problem->flag; ?>"><?php echo $problem->title; ?></a></div></td>
             <td><?php echo $problem->solutions; ?>/<?php echo $problem->submissions; ?></td>

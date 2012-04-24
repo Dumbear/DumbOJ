@@ -22,12 +22,12 @@
               <td><?php echo $rank + $offset + 1; ?></td>
               <td><div><a href="user/profile/<?php echo $item->username; ?>"><?php echo $item->username; ?></a></div></td>
 <?php     if ($item->real_name === null) { ?>
-              <td>N/A</td>
+              <td></td>
 <?php     } else { ?>
               <td><div><?php echo htmlspecialchars($item->real_name); ?></div></td>
 <?php     } ?>
 <?php     if ($item->school === null) { ?>
-              <td>N/A</td>
+              <td></td>
 <?php     } else { ?>
               <td><div><a href="user/search/:<?php echo rawurlencode($item->school); ?>"><?php echo htmlspecialchars($item->school); ?></a></div></td>
 <?php     } ?>

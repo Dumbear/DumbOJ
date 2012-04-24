@@ -4,10 +4,10 @@
     <div class="origin"><a href="<?php echo $problem->original_url; ?>"><?php echo htmlspecialchars($problem->original_site); ?> - <?php echo htmlspecialchars($problem->original_id); ?></a></div>
     <div class="limit">
       <strong>Time Limit: </strong>
-      <?php echo $problem->time_limit === null ? 'N/A' : "{$problem->time_limit}MS"; ?>
+      <?php echo $problem->time_limit === null ? 'Unknown' : "{$problem->time_limit}MS"; ?>
       &nbsp;&nbsp;
       <strong>Memory Limit: </strong>
-      <?php echo $problem->memory_limit === null ? 'N/A' : "{$problem->memory_limit}KB"; ?>
+      <?php echo $problem->memory_limit === null ? 'Unknown' : "{$problem->memory_limit}KB"; ?>
     </div>
     <div class="op">
       <a href="problems/submit/<?php echo $problem->id; ?>">Submit</a>
