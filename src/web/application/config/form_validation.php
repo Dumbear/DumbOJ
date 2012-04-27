@@ -22,12 +22,12 @@ $config = array(
         array(
             'field' => 'username',
             'label' => '"Username"',
-            'rules' => 'trim|required|min_length[3]|max_length[32]|alpha_dash|is_unique[users.username]'
+            'rules' => 'trim|required|min_length[3]|max_length[30]|alpha_dash|is_unique[users.username]'
         ),
         array(
             'field' => 'password',
             'label' => '"Password"',
-            'rules' => 'required|min_length[6]|max_length[32]'
+            'rules' => 'required|min_length[6]|max_length[30]'
         ),
         array(
             'field' => 'confirm_password',
@@ -37,17 +37,17 @@ $config = array(
         array(
             'field' => 'real_name',
             'label' => '"Real name"',
-            'rules' => 'trim|max_length[64]'
+            'rules' => 'trim|max_length[120]'
         ),
         array(
             'field' => 'school',
             'label' => '"School"',
-            'rules' => 'trim|max_length[64]'
+            'rules' => 'trim|max_length[120]'
         ),
         array(
             'field' => 'email',
             'label' => '"Email"',
-            'rules' => 'trim|max_length[64]|valid_email'
+            'rules' => 'trim|max_length[120]|valid_email'
         ),
         array(
             'field' => 'share_email',
@@ -62,7 +62,7 @@ $config = array(
         array(
             'field' => 'key',
             'label' => '"Key"',
-            'rules' => 'trim|required|check_register'
+            'rules' => 'trim|required|exact_length[32]|check_register'
         )
     ),
     'update_profile' => array(
@@ -74,7 +74,7 @@ $config = array(
         array(
             'field' => 'new_password',
             'label' => '"New password"',
-            'rules' => 'min_length[6]|max_length[32]|matches[confirm_password]'
+            'rules' => 'min_length[6]|max_length[30]|matches[confirm_password]'
         ),
         array(
             'field' => 'confirm_password',
@@ -84,17 +84,17 @@ $config = array(
         array(
             'field' => 'real_name',
             'label' => '"Real name"',
-            'rules' => 'trim|max_length[64]'
+            'rules' => 'trim|max_length[120]'
         ),
         array(
             'field' => 'school',
             'label' => '"School"',
-            'rules' => 'trim|max_length[64]'
+            'rules' => 'trim|max_length[120]'
         ),
         array(
             'field' => 'email',
             'label' => '"Email"',
-            'rules' => 'trim|max_length[64]|valid_email'
+            'rules' => 'trim|max_length[120]|valid_email'
         ),
         array(
             'field' => 'share_email',
@@ -114,12 +114,12 @@ $config = array(
         array(
             'field' => 'old_key',
             'label' => '"Old key"',
-            'rules' => 'trim|required|check_update_profile'
+            'rules' => 'trim|required|exact_length[32]|check_update_profile'
         ),
         array(
             'field' => 'new_key',
             'label' => '"New key"',
-            'rules' => 'trim'
+            'rules' => 'trim|exact_length[32]'
         )
     ),
     'submit_problem' => array(
@@ -136,7 +136,7 @@ $config = array(
         array(
             'field' => 'source_code',
             'label' => '"Source code"',
-            'rules' => 'required|min_length[32]|max_length[65535]'
+            'rules' => 'required|min_length[32]|max_length[65530]'
         )
     ),
     'submit_contest_problem' => array(
@@ -158,7 +158,7 @@ $config = array(
         array(
             'field' => 'source_code',
             'label' => '"Source code"',
-            'rules' => 'required|min_length[32]|max_length[65535]'
+            'rules' => 'required|min_length[32]|max_length[65530]'
         )
     ),
     //TODO
@@ -166,7 +166,7 @@ $config = array(
         array(
             'field' => 'title',
             'label' => '"Title"',
-            'rules' => 'trim|required|max_length[128]'
+            'rules' => 'trim|required|max_length[120]'
         ),
         array(
             'field' => 'start_time_d',
@@ -206,12 +206,12 @@ $config = array(
         array(
             'field' => 'description',
             'label' => '"Description"',
-            'rules' => 'trim|max_length[65535]'
+            'rules' => 'trim|max_length[65530]'
         ),
         array(
             'field' => 'announcement',
             'label' => '"Announcement"',
-            'rules' => 'trim|max_length[65535]'
+            'rules' => 'trim|max_length[65530]'
         ),
         array(
             'field' => 'sites[]',
@@ -226,7 +226,7 @@ $config = array(
         array(
             'field' => 'key',
             'label' => '"Key"',
-            'rules' => 'trim|required|check_add_contest'
+            'rules' => 'trim|required|exact_length[32]|check_add_contest'
         )
     )
 );
