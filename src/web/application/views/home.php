@@ -81,7 +81,6 @@
         <li>Allow users to edit contest</li>
         <li>Allow searching problems</li>
         <li>Allow administration</li>
-        <li>Change the logo</li>
       </ul>
     </div>
   </div>
