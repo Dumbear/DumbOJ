@@ -127,6 +127,23 @@ public class Utility {
         return matcher.find() ? matcher.group(group) : "";
     }
 
+    public static String resolveHtmlLinks(String source, String base) {
+        source = source.replaceAll("(src|href)\\s*=\\s*(?!['\"]|[a-zA-Z0-9+.-]*:)(\\./|/)?([^\\s>]+)", "$1=\"" + base + "$3\"");
+        source = source.replaceAll("(src|href)\\s*=\\s*'(?![a-zA-Z0-9+.-]*:)(\\./|/)?([^']+)'", "$1=\"" + base + "$3\"");
+        source = source.replaceAll("(src|href)\\s*=\\s*\"(?![a-zA-Z0-9+.-]*:)(\\./|/)?([^\"]+)\"", "$1=\"" + base + "$3\"");
+        return source;
+    }
+
+    public static String resolveHtmlLinks(String source, String base, String root) {
+        source = source.replaceAll("(src|href)\\s*=\\s*(?!['\"]|[a-zA-Z0-9+.-]*:)/([^\\s>]+)", "$1=\"" + root + "$3\"");
+        source = source.replaceAll("(src|href)\\s*=\\s*'(?![a-zA-Z0-9+.-]*:)/([^']+)'", "$1=\"" + root + "$3\"");
+        source = source.replaceAll("(src|href)\\s*=\\s*\"(?![a-zA-Z0-9+.-]*:)/([^\"]+)\"", "$1=\"" + root + "$3\"");
+        source = source.replaceAll("(src|href)\\s*=\\s*(?!['\"]|[a-zA-Z0-9+.-]*:)(\\./)?([^\\s>]+)", "$1=\"" + base + "$3\"");
+        source = source.replaceAll("(src|href)\\s*=\\s*'(?![a-zA-Z0-9+.-]*:)(\\./)?([^']+)'", "$1=\"" + base + "$3\"");
+        source = source.replaceAll("(src|href)\\s*=\\s*\"(?![a-zA-Z0-9+.-]*:)(\\./)?([^\"]+)\"", "$1=\"" + base + "$3\"");
+        return source;
+    }
+
     public static String md5(String data, String charsetName) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

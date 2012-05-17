@@ -13,9 +13,7 @@ public class HDUSpider extends Spider {
         if (source.contains("<DIV>Invalid Parameter.</DIV>") || source.contains("<DIV>No such problem - ")) {
             throw new Exception("Problem not available");
         }
-        source = source.replaceAll("(src|href)=(?!['\"]|[a-zA-Z0-9+.-]*:)(\\./|/)?([^\\s>]*)", "$1=\"http://acm.hdu.edu.cn/$3\"");
-        source = source.replaceAll("(src|href)='(?![a-zA-Z0-9+.-]*:)(\\./|/)?([^']*)'", "$1=\"http://acm.hdu.edu.cn/$3\"");
-        source = source.replaceAll("(src|href)=\"(?![a-zA-Z0-9+.-]*:)(\\./|/)?([^\"]*)\"", "$1=\"http://acm.hdu.edu.cn/$3\"");
+        source = Utility.resolveHtmlLinks(source, "http://acm.hdu.edu.cn/");
         problem = new Problem();
         problemContent = new ProblemContent();
         problem.setTitle(Utility.getMatcherString(source, "color:#1A5CC8'>([\\s\\S]*?)</h1>", 1).trim());

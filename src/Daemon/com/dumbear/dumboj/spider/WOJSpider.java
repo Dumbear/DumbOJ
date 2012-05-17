@@ -13,9 +13,7 @@ public class WOJSpider extends Spider {
         if (source.contains("<div id=\"tt\">Ooooops!</div>")) {
             throw new Exception("Problem not available");
         }
-        source = source.replaceAll("(src|href)=(?!['\"]|[a-zA-Z0-9+.-]*:)(\\./|/)?([^\\s>]*)", "$1=\"http://acm.whu.edu.cn/land/problem/$3\"");
-        source = source.replaceAll("(src|href)='(?![a-zA-Z0-9+.-]*:)(\\./|/)?([^']*)'", "$1=\"http://acm.whu.edu.cn/land/problem/$3\"");
-        source = source.replaceAll("(src|href)=\"(?![a-zA-Z0-9+.-]*:)(\\./|/)?([^\"]*)\"", "$1=\"http://acm.whu.edu.cn/land/problem/$3\"");
+        source = Utility.resolveHtmlLinks(source, "http://acm.whu.edu.cn/land/problem/", "http://acm.whu.edu.cn/");
         problem = new Problem();
         problemContent = new ProblemContent();
         problem.setTitle(Utility.getMatcherString(source, "<div id=\"tt\"> Problem[\\s\\S]*?-([\\s\\S]*?)</div>", 1).trim());
