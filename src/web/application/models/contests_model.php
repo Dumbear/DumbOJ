@@ -337,7 +337,7 @@ class Contests_model extends CI_Model {
     }
 
     public function get_contestants($id, $limit, $offset) {
-        $this->db->select('users.id, username, contestants.solutions, penalty, json');
+        $this->db->select('users.id, username, real_name, contestants.solutions, penalty, json');
         $this->db->from('contestants');
         $this->db->join('users', 'contestants.user_id = users.id', 'inner');
         $this->db->where('contest_id', $id);

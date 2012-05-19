@@ -576,3 +576,7 @@ div.contest table.standings td.info_yes {
 div.contest table.standings td.info_no {
     background-color: #F88;
 }
+
+div.contest table.standings th a.user {
+    color: #000;
+}

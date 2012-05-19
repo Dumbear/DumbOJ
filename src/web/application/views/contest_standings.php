@@ -8,7 +8,7 @@
           <thead>
             <tr>
               <th style="width: 5em">Rank</th>
-              <th style="width: 10em">User</th>
+              <th style="width: 10em"><a class="user" href="javascript:void(0)"><span class="usernames">Username</span><span class="real_names" style="display: none">Real Name</span></a></th>
               <th style="width: 4em">Yes</th>
               <th style="width: 6em">Penalty</th>
 <?php
@@ -67,7 +67,7 @@
 ?>
             <tr class="<?php echo alternator('odd', 'even'); ?>">
               <td><?php echo $rank + $offset + 1; ?></td>
-              <td><div><a href="user/profile/<?php echo $contestant->username; ?>"><?php echo $contestant->username; ?></a></div></td>
+              <td><div><a href="user/profile/<?php echo $contestant->username; ?>"><span class="usernames"><?php echo $contestant->username; ?></span><span class="real_names" style="display: none"><?php echo htmlspecialchars($contestant->real_name); ?></span></a></div></td>
               <td><a href="contests/<?php echo $contest->id; ?>/status/:<?php echo $contestant->username; ?>::"><?php echo $contestant->solutions; ?></a></td>
               <td style="padding-left: 0; padding-right: 0"><?php echo $penalty; ?></td>
 <?php     foreach ($problems as $item) { ?>
@@ -82,3 +82,13 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+    $("table.standings .usernames:first").click(function() {
+        $("table.standings .usernames").hide();
+        $("table.standings .real_names").show();
+    });
+    $("table.standings .real_names:first").click(function() {
+        $("table.standings .usernames").show();
+        $("table.standings .real_names").hide();
+    });
+</script>
