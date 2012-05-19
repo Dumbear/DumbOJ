@@ -44,7 +44,7 @@
           </tr>
 <?php
       } else {
-          if ($submission->is_shared !== '1' && !can_view_code($s_privilege) && (int)$submission->user_id !== $s_user_id) {
+          if ($submission->is_shared !== '1' && !can_view_code($s_privilege) && (int)$contest->user_id !== $s_user_id && (int)$submission->user_id !== $s_user_id) {
               $error = 'Sorry, this source code is private.';
           }
           $refresh = '';

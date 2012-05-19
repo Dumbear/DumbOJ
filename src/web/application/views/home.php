@@ -20,6 +20,7 @@
         </tbody>
       </table>
     </div>
+<?php alternator(); ?>
     <div class="container problems">
       <div class="title">Recent added problems</div>
       <hr />

@@ -32,11 +32,12 @@
               <td><div><a href="user/profile/<?php echo $contest->username; ?>"><?php echo $contest->username; ?></a></div></td>
             </tr>
 <?php     } ?>
-<?php } ?>
           </tbody>
         </table>
+<?php } ?>
       </div>
     </div>
+<?php alternator(); ?>
     <div class="container dark" style="padding: 1px; margin-top: 1.5em">
       <div style="padding: 0.25em 0.5em">Upcoming contests</div>
       <div class="container" style="margin: 0">
@@ -67,9 +68,9 @@
               <td><div><a href="user/profile/<?php echo $contest->username; ?>"><?php echo $contest->username; ?></a></div></td>
             </tr>
 <?php     } ?>
-<?php } ?>
           </tbody>
         </table>
+<?php } ?>
       </div>
     </div>
     <div class="op"><a href="contests/add">Add new contest</a>&nbsp;&nbsp;<a href="contests/past">View past contests</a></div>

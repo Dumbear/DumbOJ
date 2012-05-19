@@ -99,7 +99,7 @@
               }
 ?>
             <tr class="<?php echo alternator('odd', 'even'); ?>">
-<?php         if ($item->is_shared === '1' || can_view_code($s_privilege) || (int)$item->user_id === $s_user_id) { ?>
+<?php         if ($item->is_shared === '1' || can_view_code($s_privilege) || (int)$contest->user_id === $s_user_id || (int)$item->user_id === $s_user_id) { ?>
               <td><a href="contests/<?php echo $contest->id; ?>/submission/<?php echo $item->id; ?>"><?php echo $item->id; ?></a></td>
 <?php         } else { ?>
               <td><?php echo $item->id; ?></td>
