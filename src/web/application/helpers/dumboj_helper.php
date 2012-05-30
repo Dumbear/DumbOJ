@@ -39,7 +39,8 @@ if (!function_exists('get_available_sites')) {
             '' => 'All',
             'http://poj.org' => 'POJ',
             'http://acm.hdu.edu.cn' => 'HDU',
-            'http://acm.whu.edu.cn/land' => 'WOJ'
+            'http://acm.whu.edu.cn/land' => 'WOJ',
+            'http://livearchive.onlinejudge.org' => 'LiveArchive'
         );
     }
 }
@@ -73,6 +74,13 @@ if (!function_exists('get_available_languages')) {
                     2 => 'C++',
                     3 => 'Java',
                     4 => 'Pascal'
+                );
+            case 'LiveArchive':
+                return array(
+                    1 => 'ANSI C 4.1.2',
+                    2 => 'JAVA 1.6.0',
+                    3 => 'C++ 4.1.2',
+                    4 => 'PASCAL 2.0.4'
                 );
             default:
                 return array();
@@ -143,7 +151,7 @@ if (!function_exists('get_result_key')) {
         if (strpos($result, 'restrictedfunction') !== false) {
             return 8;
         }
-        if (strpos($result, 'systemerror') !== false || strpos($result, 'dumbjudgeerror') !== false) {
+        if (strpos($result, 'systemerror') !== false || strpos($result, 'dumbjudgeerror') !== false || strpos($result, 'submissionerror') !== false/*TODO || strpos($result, 'cantbejudged') !== false*/) {
             return 16;
         }
         return -1;
@@ -153,13 +161,13 @@ if (!function_exists('get_result_key')) {
 if (!function_exists('get_language_key')) {
     function get_language_key($language) {
         switch (strtolower(trim($language))) {
-            case 'c': case 'gcc':
+            case 'c': case 'gcc': case 'ansi c 4.1.2':
                 return 0;
-            case 'c++': case 'g++':
+            case 'c++': case 'g++': case'c++ 4.1.2':
                 return 1;
-            case 'pascal':
+            case 'pascal': case'pascal 2.0.4':
                 return 2;
-            case 'java':
+            case 'java': case'java 1.6.0':
                 return 3;
             case 'fortran':
                 return 4;
