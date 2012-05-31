@@ -146,7 +146,7 @@ public class LiveArchiveSubmitter extends Submitter {
         Pattern pattern = Pattern.compile(regex);
         try {
             long now = new Date().getTime();
-            while (new Date().getTime() - now < 10 * 60 * 1000) {
+            while (new Date().getTime() - now < 20 * 60 * 1000) {
                 String source = Utility.getHtmlSourceByGet(statusUrl, DEFAULT_CHARSET, cookie);
                 Matcher matcher = pattern.matcher(source);
                 if (matcher.find() && Integer.parseInt(matcher.group(1)) > lastId) {
