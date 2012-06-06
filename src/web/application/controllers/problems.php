@@ -11,6 +11,7 @@ class Problems extends CI_Controller {
 
 	public function index($site = 'All', $offset = 0) {
         $data = array();
+        $data['title'] = 'Problems - DumbOJ';
         $data['current_site'] = rawurldecode(html_entity_decode($site));
         if (!in_array($data['current_site'], get_available_sites())) {
             redirect('/problems');
@@ -63,6 +64,7 @@ class Problems extends CI_Controller {
         if ($data['problem'] === null) {
             show_404();
         }
+        $data['title'] = "{$data['problem']->title} - DumbOJ";
         $data['problem_content'] = $this->problems_model->get_problem_content($id);
         if ($data['problem_content'] === null) {
             show_404();
@@ -76,6 +78,7 @@ class Problems extends CI_Controller {
             show_404();
         }
         $data = array();
+        $data['title'] = 'Submit - DumbOJ';
 
         //Fetch problem
         $data['problem'] = $this->problems_model->get_problem($id);
@@ -125,6 +128,7 @@ class Problems extends CI_Controller {
 
     public function status($filter = '::::', $offset = 0) {
         $data = array();
+        $data['title'] = 'Status - DumbOJ';
 
         //Parse filter conditions
         $data['conditions'] = parse_conditions(
@@ -160,6 +164,7 @@ class Problems extends CI_Controller {
         if ($data['submission'] === null) {
             show_404();
         }
+        $data['title'] = "Submission {$data['submission']->id} - DumbOJ";
 
         //If is a contest submission
         if ($data['submission']->contest_id !== null) {

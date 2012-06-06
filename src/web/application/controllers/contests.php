@@ -12,6 +12,7 @@ class Contests extends CI_Controller {
 
     public function index() {
         $data = array();
+        $data['title'] = 'Current Contests - DumbOJ';
         $now = date('Y-m-d H:i:s');
         $data['current_contests'] = $this->contests_model->get_current_contests($now);
         $data['upcoming_contests'] = $this->contests_model->get_upcoming_contests($now);
@@ -30,6 +31,7 @@ class Contests extends CI_Controller {
         );
         $this->pagination->initialize($config);
         $data = array();
+        $data['title'] = 'Past Contests - DumbOJ';
         $data['contests'] = $this->contests_model->get_past_contests($config['per_page'], $offset, $now);
         $data['pagination'] = $this->pagination->create_links();
         $this->template->display('past_contests', $data);
@@ -44,6 +46,7 @@ class Contests extends CI_Controller {
         }
 
         $data = array();
+        $data['title'] = 'Add Contest - DumbOJ';
         $data['count'] = $this->input->post('sites') === false ? 0 : count($this->input->post('sites'));
 
         //Validate form
@@ -67,6 +70,7 @@ class Contests extends CI_Controller {
         if ($data['contest'] === null) {
             show_404();
         }
+        $data['title'] = "{$data['contest']->title} - DumbOJ";
 
         //Fetch problems
         $data['problems'] = $this->contests_model->get_problems($data['contest']->id);
@@ -90,6 +94,7 @@ class Contests extends CI_Controller {
         if ($data['contest'] === null) {
             show_404();
         }
+        $data['title'] = "Problems - {$data['contest']->title} - DumbOJ";
 
         //If need password
         if ($this->need_password($data['contest'])) {
@@ -131,6 +136,7 @@ class Contests extends CI_Controller {
         if ($data['contest'] === null) {
             show_404();
         }
+        $data['title'] = "Submit - {$data['contest']->title} - DumbOJ";
 
         //If need password
         if ($this->need_password($data['contest'])) {
@@ -214,6 +220,7 @@ class Contests extends CI_Controller {
         if ($data['contest'] === null) {
             show_404();
         }
+        $data['title'] = "Status - {$data['contest']->title} - DumbOJ";
 
         //If need password
         if ($this->need_password($data['contest'])) {
@@ -281,6 +288,7 @@ class Contests extends CI_Controller {
         if ($data['contest'] === null) {
             show_404();
         }
+        $data['title'] = "Standings - {$data['contest']->title} - DumbOJ";
 
         //If need password
         if ($this->need_password($data['contest'])) {
@@ -336,6 +344,7 @@ class Contests extends CI_Controller {
         if ($data['submission'] === null) {
             show_404();
         }
+        $data['title'] = "Submission {$data['submission']->id} - {$data['contest']->title} - DumbOJ";
 
         //Fetch problem
         $data['problem'] = $this->contests_model->get_problem_by_id(

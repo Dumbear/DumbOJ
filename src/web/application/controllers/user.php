@@ -17,6 +17,7 @@ class User extends CI_Controller {
         $this->load->library('form_validation');
         if ($this->form_validation->run('login') === false) {
             $data = array();
+            $data['title'] = 'Login - DumbOJ';
             $data['salt'] = generate_salt();
             $this->session->set_userdata('salt', $data['salt']);
             $this->session->set_flashdata('referrer', $referrer);
@@ -46,7 +47,9 @@ class User extends CI_Controller {
         }
         $this->load->library('form_validation');
         if ($this->form_validation->run('register') === false) {
-            $this->template->display('register');
+            $data = array();
+            $data['title'] = 'Register - DumbOJ';
+            $this->template->display('register', $data);
         } else {
             $this->session->set_flashdata('message', 'You have successfully registered! You can login now!');
             redirect('/user/login');
@@ -67,6 +70,7 @@ class User extends CI_Controller {
         if ($data['profile'] === null) {
             show_404();
         }
+        $data['title'] = "{$data['profile']->username} - DumbOJ";
         $data['is_self'] = ((int)$data['profile']->id === $this->session->userdata('user_id'));
         if ((int)$data['profile']->enabled === 0) {
             $data['rank'] = '';
@@ -90,6 +94,7 @@ class User extends CI_Controller {
         $this->load->library('form_validation');
         if ($this->form_validation->run('update_profile') === false) {
             $data = array();
+            $data['title'] = 'Update Profile - DumbOJ';
             $data['salt'] = generate_salt();
             $data['user'] = $this->user_model->get_profile($this->session->userdata('username'));
             $this->session->set_userdata('salt', $data['salt']);
@@ -102,6 +107,7 @@ class User extends CI_Controller {
 
     public function search($filter) {
         $data = array();
+        $data['title'] = 'Search Users - DumbOJ';
 
         //Parse filter conditions
         $data['conditions'] = parse_conditions(rawurldecode(html_entity_decode($filter)), array('name', 'school'));
@@ -123,6 +129,7 @@ class User extends CI_Controller {
         );
         $this->pagination->initialize($config);
         $data = array();
+        $data['title'] = 'Ranklist - DumbOJ';
         $data['offset'] = $offset;
         $data['ranklist'] = $this->user_model->get_ranklist($config['per_page'], $offset);
         $data['pagination'] = $this->pagination->create_links();

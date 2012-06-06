@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title><?php echo htmlspecialchars($title); ?></title>
   <base href="<?php echo site_url(); ?>" />
   <link href="css/default.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>

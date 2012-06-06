@@ -6,7 +6,7 @@
       <div style="padding: 0.25em 0.5em">Current contests</div>
       <div class="container" style="margin: 0">
 <?php if (count($current_contests) === 0) { ?>
-        <div class="error">There is no contests running right now.</div>
+        <div class="error">There are no contests running right now.</div>
 <?php } else { ?>
         <table class="data fixed current">
           <thead>
@@ -42,7 +42,7 @@
       <div style="padding: 0.25em 0.5em">Upcoming contests</div>
       <div class="container" style="margin: 0">
 <?php if (count($upcoming_contests) === 0) { ?>
-        <div class="error">There is no upcoming contests.</div>
+        <div class="error">There are no upcoming contests.</div>
 <?php } else { ?>
         <table class="data fixed upcoming">
           <thead>

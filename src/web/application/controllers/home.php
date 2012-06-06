@@ -10,6 +10,7 @@ class Home extends CI_Controller {
 
 	public function index() {
         $data = array();
+        $data['title'] = "DumbOJ - A Virtual Online Judge System";
 
         $data['now'] = new DateTime();
         $data['contests'] = $this->contests_model->get_current_contests();
