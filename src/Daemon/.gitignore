@@ -19,5 +19,4 @@ config.xml
 *.sql
 
 # Supervise #
-run
 supervise

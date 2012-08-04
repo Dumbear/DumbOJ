@@ -1,0 +1,75 @@
+﻿DumbOJ搭建说明
+
+1. 关于用户及Apache
+    假设直接使用www-data用户搭建，Apache默认使用此用户运行
+    假设已将代码存放于/home/www-data/dumboj下
+    假设网站映射的根目录为/var/www（Apache默认）
+    1.1 启用Apache的mod_rewrite
+        执行sudo a2enmod rewrite
+    1.2 修改Apache配置文件
+        进入目录/etc/apache2/sites-enabled
+        修改000-default中的<Directory /var/www>节点：
+            Options应有FollowSymLinks
+            AllowOverride应为All
+            如果Apache版本较新则还需要有AcceptPathInfo On
+    1.3 链接DumbOJ
+        进入目录/var/www
+        执行ln -s /home/www-data/dumboj/src/web/index dumboj
+
+2. web端数据库配置
+    假设数据库主机为localhost，数据库用户名为root、密码为123456
+    2.1 导入数据库
+        执行mysql -u root -p，进入mysql
+        执行source /home/www-data/dumboj/util/dumboj.sql导入数据库
+        现在mysql中应当存在一个名为dumboj的数据库
+    2.2 修改数据库配置文件
+        进入目录/home/www-data/dumboj/src/web/application/config
+        重命名配置文件sample-database.php为database.php
+        修改database.php中的：
+            $db['default']['hostname']（数据库主机）
+            $db['default']['username']（数据库用户名）
+            $db['default']['password']（数据库密码）
+            $db['default']['database']（数据库名）
+
+3. web端其他配置
+    假设daemon端与web端运行于同一主机上，即127.0.0.1，并采用10000端口进行通信
+    进入目录/home/www-data/dumboj/src/web/application/config
+    重命名配置文件sample-config.php为config.php
+    修改config.php中的：
+        $config['encryption_key']（session密钥，可以随便设置，但不能为空）
+        $config['dumboj_daemon_ip']（daemon端所在主机的ip地址）
+        $config['dumboj_daemon_port']（daemon端的监听端口）
+        $config['dumboj_daemon_key']（与daemon端的通信密钥，可以随便设置，但不能为空，复杂一些比较好）
+        $config['dumboj_cache_path']（需要设置为/home/www-data/dumboj/src/web/application/cache）
+
+4. daemon端配置
+    进入目录/home/www-data/dumboj/src/Daemon
+    重命名配置文件sample-config.xml为config.xml
+    修改config.xml中的：
+        ListeningPort（监听端口，需要与3中的$config['dumboj_daemon_port']一致）
+        Key（与web端的通信密钥，需要与3中的$config['dumboj_daemon_key']一致）
+        CachePath（需要设置为/home/www-data/dumboj/src/web/application/cache）
+        AddProblemUrl（根据实际地址的不同替换http://localhost/dumboj/部分）
+        UpdateSubmissionUrl（根据实际地址的不同替换http://localhost/dumboj/部分）
+
+5. OJ账号配置
+    进入目录/home/www-data/dumboj/src/Daemon
+    复制配置文件sample-accounts.xml为POJAccounts.xml、HDUAccounts.xml等，其他OJ类似。
+    修改这些文件中的：
+        <Account username="" password="" />（对应OJ账号的用户名与密码，需要提前手工注册，可添加多个不同的账号提高评测效率）
+
+6. 编译运行系统
+    6.1 编译daemon端
+        进入目录/home/www-data/dumboj/src/Daemon
+        如果安装有ant则可直接由build.xml编译，否则使用javac编译目录中的所有.java文件
+    6.2 运行daemon端
+        进入目录/home/www-data/dumboj/src/Daemon
+        保证Daemon.log文件可写（其为daemon端的日志文件）
+        执行./run测试有无错误出现
+        结束Daemon，用supervise启动：
+            执行setsid supervise /home/www-data/dumboj/src/Daemon &
+
+================================================================================
+
+说明：
+    DumbOJ默认管理员账号为admin，密码为123456

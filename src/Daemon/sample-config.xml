@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DaemonConfig>
+  <ListeningPort value="10000" />
+  <Key value="" />
+  <CachePath value="" />
+  <Charset value="UTF-8" />
+
+  <RequestThreadsNumber value="5" />
+  <ProblemAdderThreadsNumber value="5" />
+  <ProblemJudgerThreadsNumber value="5" />
+
+  <RequestCommandMaxLength value="256" />
+  <RequestCapacity value="1024" />
+
+  <ProblemAdderCapacity value="1024" />
+  <AddProblemUrl value="http://localhost/dumboj/admin/add_problem" />
+
+  <ProblemJudgerCapacity value="1024" />
+  <UpdateSubmissionUrl value="http://localhost/dumboj/admin/update_submission" />
+</DaemonConfig>

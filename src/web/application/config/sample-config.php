@@ -359,6 +359,7 @@ $config['proxy_ips'] = '';
 
 $config['dumboj_daemon_ip'] = '127.0.0.1';
 $config['dumboj_daemon_port'] = 10000;
+$config['dumboj_daemon_key'] = '';
 $config['dumboj_timeout'] = 5;
 $config['dumboj_cache_path'] = './application/cache';
 
