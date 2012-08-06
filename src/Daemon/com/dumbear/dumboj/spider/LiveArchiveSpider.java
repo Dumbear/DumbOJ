@@ -26,10 +26,18 @@ public class LiveArchiveSpider extends Spider {
         problem.setOriginalSite(SITE);
         problemContent.setUserId(1);
         problemContent.setDescription(Utility.getMatcherString(source, "^([\\s\\S]*?)<H2><FONT size=4 COLOR=#ff0000><A NAME=\"SECTION000100\\d000000000000000\">", 1));
-        problemContent.setInput(Utility.getMatcherString(source, "Input</A>&nbsp;</FONT>\\s*</H2>([\\s\\S]*?)<H2><FONT size=4 COLOR=#ff0000><A NAME=\"SECTION000100\\d000000000000000\">", 1));
-        problemContent.setOutput(Utility.getMatcherString(source, "Output</A>&nbsp;</FONT>\\s*</H2>([\\s\\S]*?)<H2><FONT size=4 COLOR=#ff0000><A NAME=\"SECTION000100\\d000000000000000\">", 1));
-        problemContent.setSampleInput(Utility.getMatcherString(source, "Sample Input</A>&nbsp;</FONT>\\s*</H2>([\\s\\S]*?)<H2><FONT size=4 COLOR=#ff0000><A NAME=\"SECTION000100\\d000000000000000\">", 1));
-        problemContent.setSampleOutput(Utility.getMatcherString(source, "Sample Output</A>&nbsp;</FONT>\\s*</H2>([\\s\\S]*)", 1));
+        if (problemContent.getDescription().isEmpty()) {
+            problemContent.setDescription(source);
+            problemContent.setInput("");
+            problemContent.setOutput("");
+            problemContent.setSampleInput("");
+            problemContent.setSampleOutput("");
+        } else {
+            problemContent.setInput(Utility.getMatcherString(source, "Input</A>&nbsp;</FONT>\\s*</H2>([\\s\\S]*?)<H2><FONT size=4 COLOR=#ff0000><A NAME=\"SECTION000100\\d000000000000000\">", 1));
+            problemContent.setOutput(Utility.getMatcherString(source, "Output</A>&nbsp;</FONT>\\s*</H2>([\\s\\S]*?)<H2><FONT size=4 COLOR=#ff0000><A NAME=\"SECTION000100\\d000000000000000\">", 1));
+            problemContent.setSampleInput(Utility.getMatcherString(source, "Sample Input</A>&nbsp;</FONT>\\s*</H2>([\\s\\S]*?)<H2><FONT size=4 COLOR=#ff0000><A NAME=\"SECTION000100\\d000000000000000\">", 1));
+            problemContent.setSampleOutput(Utility.getMatcherString(source, "Sample Output</A>&nbsp;</FONT>\\s*</H2>([\\s\\S]*)", 1));
+        }
         problemContent.setHint("");
         problemContent.setRemark("Created by " + SITE + "Spider.");
     }
