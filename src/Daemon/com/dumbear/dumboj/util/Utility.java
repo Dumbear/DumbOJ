@@ -70,6 +70,7 @@ public class Utility {
                 if (i == 1) {
                     throw e;
                 }
+                Thread.sleep((4 - i) * 1024);
             }
         }
         return encodeHtmlSource(bytes, charsetName);
@@ -112,6 +113,7 @@ public class Utility {
                 if (i == 1) {
                     throw e;
                 }
+                Thread.sleep((4 - i) * 1024);
             }
         }
         return encodeHtmlSource(bytes, charsetName);

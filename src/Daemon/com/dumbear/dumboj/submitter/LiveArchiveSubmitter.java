@@ -145,7 +145,7 @@ public class LiveArchiveSubmitter extends Submitter {
                        "<td>([\\s\\S]*?)</td>";
         Pattern pattern = Pattern.compile(regex);
         try {
-            long now = new Date().getTime();
+            long now = new Date().getTime(), gap = 2048;
             while (new Date().getTime() - now < 20 * 60 * 1000) {
                 String source = Utility.getHtmlSourceByGet(statusUrl, DEFAULT_CHARSET, cookie);
                 Matcher matcher = pattern.matcher(source);
@@ -162,7 +162,8 @@ public class LiveArchiveSubmitter extends Submitter {
                     }
                     R.updateSubmission(submission);
                 }
-                Thread.sleep(2048);
+                Thread.sleep(gap);
+                gap += 512;
             }
             throw new Exception("Cannot fetch result");
         } catch (Exception e) {
