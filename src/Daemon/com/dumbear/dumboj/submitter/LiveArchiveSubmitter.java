@@ -45,11 +45,11 @@ public class LiveArchiveSubmitter extends Submitter {
         }
     }
 
-    public static final String homeUrl = "http://livearchive.onlinejudge.org";
-    public static final String loginUrl = "http://livearchive.onlinejudge.org/index.php?option=com_comprofiler&task=login";
-    public static final String statusUrl = "http://livearchive.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9";
-    public static final String submitUrl = "http://livearchive.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=25&page=save_submission";
-    public static final String additionalUrl = "http://livearchive.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=9&page=show_compilationerror&submission=";
+    public static final String homeUrl = "https://icpcarchive.ecs.baylor.edu";
+    public static final String loginUrl = "https://icpcarchive.ecs.baylor.edu/index.php?option=com_comprofiler&task=login";
+    public static final String statusUrl = "https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=9";
+    public static final String submitUrl = "https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=25&page=save_submission";
+    public static final String additionalUrl = "https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=9&page=show_compilationerror&submission=";
 
     private int accountId;
     private Account account;

@@ -40,7 +40,7 @@ if (!function_exists('get_available_sites')) {
             'http://poj.org' => 'POJ',
             'http://acm.hdu.edu.cn' => 'HDU',
             'http://acm.whu.edu.cn/land' => 'WOJ',
-            'http://livearchive.onlinejudge.org' => 'LiveArchive'
+            'https://icpcarchive.ecs.baylor.edu' => 'LiveArchive'
         );
     }
 }
